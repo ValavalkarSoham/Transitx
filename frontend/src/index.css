@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Neo-Noir / Wong Kar-wai Cinematic Styles */
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #030807; /* Deep midnight jade-black */
+  color: #f7f3eb; /* Melancholic ivory/off-white */
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+}
+
+/* Serif font style for cinematic headings */
+h1, h2, h3, h4, .cinematic-title {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  letter-spacing: 0.03em;
+}
+
+/* Leaflet map sizing container helper */
+.map-container {
+  height: 450px;
+  width: 100%;
+  border-radius: 0.5rem;
+  z-index: 10;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+/* Ensure leaflet markers don't get hidden by layouts */
+.leaflet-pane {
+  z-index: 2 !important;
+}
+
+.leaflet-top, .leaflet-bottom {
+  z-index: 1000 !important;
+}
+
+/* Override leaflet popup background for dark theme look */
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #061210 !important; /* Deep jade card */
+  color: #f7f3eb !important;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Force Cinematic Neo-Noir globally on white/gray Tailwind classes */
+
+.bg-white {
+  background-color: #061210 !important; /* Deep moody jade-green card bg */
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+.bg-gray-50 {
+  background-color: #030807 !important; /* Midnight jade-black app background */
+}
+
+.bg-gray-100 {
+  background-color: #0a1b18 !important; /* Dark emerald section bg */
+}
+
+.bg-sky-50 {
+  background-color: #100609 !important; /* Deep moody ruby-rose background for highlights */
+}
+
+.bg-sky-100 {
+  background-color: #2b0b14 !important; /* Solid dark ruby */
+}
+
+.bg-amber-50 {
+  background-color: #1f1505 !important; /* Moody marigold amber background */
+}
+
+.bg-red-50 {
+  background-color: #240508 !important; /* Blood red */
+}
+
+/* Border color overrides */
+.border-gray-100,
+.border-gray-200,
+.border-gray-300,
+.border-gray-400 {
+  border-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+.border-sky-150,
+.border-sky-200,
+.border-sky-100 {
+  border-color: rgba(220, 38, 38, 0.3) !important; /* Crimson borders for sky elements */
+}
+
+.border-amber-200,
+.border-amber-100 {
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+.border-red-200 {
+  border-color: rgba(220, 38, 38, 0.4) !important;
+}
+
+/* Text color overrides */
+.text-gray-900,
+.text-gray-800 {
+  color: #f7f3eb !important; /* Ivory text */
+}
+
+.text-gray-750,
+.text-gray-700,
+.text-gray-600 {
+  color: #a7b5b0 !important; /* Melancholic dusty green-gray */
+}
+
+.text-gray-500,
+.text-gray-400 {
+  color: #788c85 !important;
+}
+
+.text-gray-700.font-semibold,
+.text-gray-900.font-bold {
+  color: #f7f3eb !important;
+}
+
+.text-sky-600,
+.text-sky-700,
+.text-sky-500 {
+  color: #f87171 !important; /* Red/Crimson text for brand accents */
+}
+
+.text-amber-800,
+.text-amber-700 {
+  color: #f59e0b !important; /* Marigold amber text */
+}
+
+.text-red-700 {
+  color: #ef4444 !important;
+}
+
+/* Forms (inputs, select dropdowns, textareas) */
+input,
+select,
+textarea {
+  background-color: #030807 !important;
+  color: #f7f3eb !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #10b981 !important; /* Emerald focus */
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3) !important;
+  outline: none;
+}
+
+/* QR Code container */
+.qr-code-wrapper {
+  background-color: #f7f3eb !important;
+  border-color: #f7f3eb !important;
+  padding: 1rem !important;
+}
+
+.qr-code-wrapper * {
+  color: #030807 !important;
+}
+
+/* Custom Neon Glow Utilities (Wong Kar-wai cinematic colors) */
+.neon-border-cyan {
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.45), inset 0 0 6px rgba(220, 38, 38, 0.2) !important;
+  border-color: rgba(220, 38, 38, 0.5) !important;
+}
+
+.neon-border-green {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.45), inset 0 0 6px rgba(16, 185, 129, 0.2) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+}
+
+.neon-border-amber {
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.45), inset 0 0 6px rgba(245, 158, 11, 0.2) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+}
+
+.neon-text-cyan {
+  color: #f87171 !important; /* Ruby-red neon glow */
+  text-shadow: 0 0 12px rgba(220, 38, 38, 0.95), 0 0 3px rgba(220, 38, 38, 0.95) !important;
+}
+
+.neon-text-green {
+  color: #34d399 !important; /* Emerald-green neon glow */
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.95), 0 0 3px rgba(16, 185, 129, 0.95) !important;
+}
+
+.neon-text-amber {
+  color: #fbbf24 !important; /* Warm marigold glow */
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.95), 0 0 3px rgba(245, 158, 11, 0.95) !important;
+}
+
+/* Pulse glow for buttons/cards */
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.35), inset 0 0 4px rgba(220, 38, 38, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.75), inset 0 0 10px rgba(220, 38, 38, 0.35);
+  }
+}
+
+.animate-neon-pulse {
+  animation: neonPulse 2.5s infinite alternate;
+}
+
+/* ==========================================================================
+   🚌 Theme Bus Design Utilities
+   ========================================================================== */
+
+/* 1. LED Destination Dot-Matrix Board */
+.bus-led-sign {
+  font-family: 'Courier New', Courier, monospace !important;
+  background-color: #050200 !important;
+  color: #ff9800 !important; /* Authentic Amber LED glow */
+  border: 4px solid #111827 !important;
+  text-shadow: 0 0 10px rgba(255, 152, 0, 0.95), 0 0 2px rgba(255, 152, 0, 0.95) !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  box-shadow: inset 0 0 12px rgba(255, 152, 0, 0.25), 0 4px 15px rgba(0,0,0,0.6) !important;
+  border-radius: 0.375rem !important;
+}
+
+/* 2. Scalloped Bus Ticket Styling */
+.bus-ticket {
+  background-image: 
+    radial-gradient(circle at left, transparent 18px, #061210 20px),
+    radial-gradient(circle at right, transparent 18px, #061210 20px) !important;
+  background-size: 100% 100% !important;
+  position: relative;
+  border: 1px solid rgba(16, 185, 129, 0.15) !important;
+}
+
+.bus-ticket-perforation {
+  border-top: 3px dashed rgba(16, 185, 129, 0.25);
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Circular notch accents inside tickets */
+.bus-ticket-perforation::before,
+.bus-ticket-perforation::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  width: 16px;
+  height: 16px;
+  background-color: #030807;
+  border-radius: 50%;
+}
+.bus-ticket-perforation::before { left: -24px; }
+.bus-ticket-perforation::after { right: -24px; }
+
+/* 3. Bus Window Gasket Frame */
+.bus-window-frame {
+  border: 8px solid #111827 !important; /* Thick rubber window seal */
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.65), 
+    0 0 0 3px #374151, /* Metallic aluminum bezel */
+    inset 0 0 20px rgba(0,0,0,0.8) !important;
+  border-radius: 1.75rem !important;
+  overflow: hidden;
+}
+
+/* 4. Dashboard Push Buttons */
+.btn-dashboard-red {
+  background: radial-gradient(circle, #f87171 0%, #dc2626 100%) !important;
+  border: 4px solid #7f1d1d !important;
+  box-shadow: 0 5px 0 #450a0a, 0 8px 15px rgba(220, 38, 38, 0.35) !important;
+  transition: all 0.1s ease !important;
+  border-radius: 9999px !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+}
+.btn-dashboard-red:active {
+  transform: translateY(3px) !important;
+  box-shadow: 0 2px 0 #450a0a, 0 4px 8px rgba(220, 38, 38, 0.35) !important;
+}
+
+.btn-dashboard-green {
+  background: radial-gradient(circle, #34d399 0%, #059669 100%) !important;
+  border: 4px solid #064e3b !important;
+  box-shadow: 0 5px 0 #022c22, 0 8px 15px rgba(5, 150, 105, 0.35) !important;
+  transition: all 0.1s ease !important;
+  border-radius: 9999px !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+}
+.btn-dashboard-green:active {
+  transform: translateY(3px) !important;
+  box-shadow: 0 2px 0 #022c22, 0 4px 8px rgba(5, 150, 105, 0.35) !important;
+}

@@ -1,0 +1,17 @@
+{
+  "short_name": "TransitX",
+  "name": "TransitX Goa Campus Shuttles",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#030807",
+  "theme_color": "#030807",
+  "display": "standalone",
+  "orientation": "portrait"
+}

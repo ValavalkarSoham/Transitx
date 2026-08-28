@@ -1,0 +1,30 @@
+# Task Checklist — TransitX Goa Campus Edition
+
+- [x] **Step 1: Backend Updates**
+  - [x] Update User model (`User.js`) with Student, Employee, and paymentHistory database schema arrays
+  - [x] Update `authController.js` signup to support student/employee fields
+  - [x] Create `employeeController.js` and `employeeRoutes.js` (renaming driver files)
+  - [x] Update `busController.js` role checks to use employee
+  - [x] Mount `/api/employees` routes in `server.js`
+  - [x] Update database seeder (`seed.js`) with student, employee, and Goa Campus routes terminating at Quitol
+  - [x] Adapt `updateStudentPass` to store dynamic pass price, route name, and transactionId inside MongoDB logs
+- [x] **Step 2: Frontend Updates & Views**
+  - [x] Add `Home.jsx` public landing page with loop background video integration
+  - [x] Add `SignUp.jsx` dynamic registration form without admin registration
+  - [x] Update `Login.jsx` redirection routes based on user role and Goa account info
+  - [x] Add `StudentDashboard.jsx` (Map tracking + digital pass card + Rupee subscription plans + dummy checkout modal)
+  - [x] Create `EmployeeDashboard.jsx` (duty schedule + location sharing)
+  - [x] Update `AdminDashboard.jsx` to add Employee management table & stats
+  - [x] Update Axios configurations in `api.js`
+  - [x] Update Navbar links and App routing in `Navbar.jsx` & `App.jsx`
+  - [x] Style global app layout with a premium Black and Dark Blue color theme
+  - [x] Build glowing Footer component containing Goa campus directories and mount to all views
+  - [x] Center Leaflet map default coordinates to PU Goa Campus in Quitol, South Goa, India
+  - [x] Implement dynamic pass pricing matching route distance from Quitol campus
+  - [x] Program Navbar.jsx scroll controllers to automatically hide navigation when scrolling down
+  - [x] Build the new Billing & Receipts subpage showing active plans and transaction receipts history tables
+  - [x] Create the Printable Tax Invoice Modal with native window.print() triggers and stamp details
+- [x] **Step 3: Verification & Docs**
+  - [x] Run seed script and verify Goa collections
+  - [x] Conduct end-to-end verification (Sign Up Student -> Subscribe Pass -> Track Employee -> Admin verify employee)
+  - [x] Update walkthrough documentation (`walkthrough.md`)
