@@ -112,3 +112,11 @@ export const employeeService = {
       body: empData,
     }),
 };
+
+export const aiService = {
+  chat: (message, history = []) =>
+    apiRequest('/ai/chat', {
+      method: 'POST',
+      body: { message, history },
+    }),
+};

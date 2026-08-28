@@ -25,6 +25,7 @@ const authRoutes = require('./routes/authRoutes');
 const busRoutes = require('./routes/busRoutes');
 const routeRoutes = require('./routes/routeRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 const Bus = require('./models/Bus');
 
 // Mount Routes
@@ -32,6 +33,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/buses', busRoutes);
 app.use('/api/routes', routeRoutes);
 app.use('/api/employees', employeeRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Base route
 app.get('/', (req, res) => {

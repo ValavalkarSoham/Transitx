@@ -10,6 +10,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import EmployeeDashboard from './pages/EmployeeDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Footer from './components/Footer';
+import TransitBot from './components/TransitBot';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
               />
             </Routes>
           </div>
+          <TransitBot />
           <Footer />
         </div>
       </Router>
