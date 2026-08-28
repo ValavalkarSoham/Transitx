@@ -227,9 +227,9 @@ const routes = [
 
 const seedData = async () => {
   try {
-    // Connect to database
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/transitx');
-    console.log('MongoDB connected for seeding Goa routes...');
+    const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/transitx';
+    await mongoose.connect(mongoUri);
+    console.log('MongoDB connected for seeding Goa routes to:', mongoose.connection.host, 'DB:', mongoose.connection.name);
 
     // Clear existing data
     await User.deleteMany();

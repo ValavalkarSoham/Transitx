@@ -88,7 +88,11 @@ const AdminDashboard = () => {
     loadData();
 
     // Listen to global socket updates for buses moving in real-time
-    socketRef.current = io('http://localhost:5001');
+    const socketServerUrl = import.meta.env.VITE_SOCKET_URL || 
+      (import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : null) || 
+      (window.location.hostname === 'localhost' ? 'http://localhost:5001' : `http://${window.location.hostname}:5001`);
+    
+    socketRef.current = io(socketServerUrl);
     
     socketRef.current.on('globalLocationUpdate', ({ busId, lat, lng }) => {
       setBuses((prevBuses) =>
