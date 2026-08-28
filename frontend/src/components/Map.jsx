@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 
-const Map = ({ activeBusLocation, routeStops, allBuses }) => {
+const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
   
   // Keep track of layers to remove them easily on updates
   const markersRef = useRef({});
   const routeLayersRef = useRef([]);
+  const geofenceLayerRef = useRef(null);
 
   useEffect(() => {
     // 1. Initialize map if not already initialized
@@ -217,8 +218,37 @@ const Map = ({ activeBusLocation, routeStops, allBuses }) => {
 
       markersRef.current[key] = marker;
     });
-
   }, [allBuses]);
+
+  // Render Proximity Geofence Radar Circle
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    if (geofenceLayerRef.current) {
+      map.removeLayer(geofenceLayerRef.current);
+      geofenceLayerRef.current = null;
+    }
+
+    if (geofenceCircle && geofenceCircle.active && geofenceCircle.lat && geofenceCircle.lng) {
+      const circle = L.circle([geofenceCircle.lat, geofenceCircle.lng], {
+        radius: geofenceCircle.radius || 1000,
+        color: '#00FFFF',
+        weight: 2,
+        opacity: 0.9,
+        fillColor: '#00FFFF',
+        fillOpacity: 0.12,
+        dashArray: '6, 6',
+      }).addTo(map);
+
+      circle.bindTooltip(`📡 Radar Perimeter: ${geofenceCircle.radius}m Alert Zone`, {
+        permanent: false,
+        direction: 'top',
+      });
+
+      geofenceLayerRef.current = circle;
+    }
+  }, [geofenceCircle]);
 
   return (
     <div className="relative shadow-sm rounded-lg overflow-hidden border border-gray-200 bg-gray-100">

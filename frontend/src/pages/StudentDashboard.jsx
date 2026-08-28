@@ -21,6 +21,12 @@ import {
   Check,
   Bell,
   Send,
+  Radio,
+  Volume2,
+  VolumeX,
+  Smartphone,
+  Target,
+  Zap,
 } from 'lucide-react';
 
 const StudentDashboard = () => {
@@ -50,6 +56,17 @@ const StudentDashboard = () => {
   const [isLatePanelOpen, setIsLatePanelOpen] = useState(false);
   const [lateMinutes, setLateMinutes] = useState('5');
   const [lateSent, setLateSent] = useState(false);
+
+  // Proximity Geofence Alert States
+  const [geofenceEnabled, setGeofenceEnabled] = useState(false);
+  const [geofenceRadius, setGeofenceRadius] = useState(1000); // meters: 500, 1000, 2000
+  const [geofenceSound, setGeofenceSound] = useState(true);
+  const [geofenceVibrate, setGeofenceVibrate] = useState(true);
+  const [geofenceAlert, setGeofenceAlert] = useState(null); // { busNumber, stopName, distanceMeters, timeMins, timestamp }
+  const [notificationPermission, setNotificationPermission] = useState(
+    typeof Notification !== 'undefined' ? Notification.permission : 'default'
+  );
+  const hasAlertedRef = useRef(false);
 
   const routePrices = {
     'Route 1 - Marcel Line': 45000,
@@ -164,8 +181,140 @@ const StudentDashboard = () => {
     }
   }, [trackingLocation, selectedStop]);
 
+  // Web Audio synthesizer chime for proximity radar alert
+  const playProximityChime = () => {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+      
+      // 3-tone retro synth chord progression (E5 -> G#5 -> B5)
+      const tones = [659.25, 830.61, 987.77];
+      tones.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.12);
+        
+        gain.gain.setValueAtTime(0.25, ctx.currentTime + idx * 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.12 + 0.35);
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start(ctx.currentTime + idx * 0.12);
+        osc.stop(ctx.currentTime + idx * 0.12 + 0.4);
+      });
+    } catch (err) {
+      console.error('Audio chime error:', err);
+    }
+  };
+
+  // Request browser Web Notification permissions
+  const requestNotificationPermission = async () => {
+    if (typeof Notification === 'undefined') return;
+    try {
+      const perm = await Notification.requestPermission();
+      setNotificationPermission(perm);
+      if (perm === 'granted') {
+        new Notification('📡 TransitX Proximity Radar Active', {
+          body: 'Proximity Geofence alerts are now armed. You will be notified when your bus approaches!',
+          icon: '/logo.svg',
+        });
+      }
+    } catch (e) {
+      console.error('Notification permission error:', e);
+    }
+  };
+
+  // Test sample alert immediately
+  const handleTestProximityAlert = () => {
+    if (geofenceSound) playProximityChime();
+    if (geofenceVibrate && typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate([250, 100, 250, 100, 400]);
+    }
+    setGeofenceAlert({
+      busNumber: selectedBus?.busNumber || 'GA-08-F-1234',
+      stopName: selectedStop?.name || 'Assigned Campus Stop',
+      distanceMeters: Math.round(geofenceRadius * 0.75),
+      timeMins: 2,
+      timestamp: new Date().toLocaleTimeString(),
+    });
+    if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+      try {
+        new Notification(`🚌 Bus Approaching Alert (Test)`, {
+          body: `Bus is within your ${geofenceRadius}m geofence perimeter! (~2 min ETA)`,
+          icon: '/logo.svg',
+          tag: 'transitx-geofence-test',
+        });
+      } catch (err) {
+        console.error('Web notification error:', err);
+      }
+    }
+  };
+
+  // Geofence Proximity Alert Trigger Effect
+  useEffect(() => {
+    if (!geofenceEnabled || !trackingLocation || !selectedStop || !selectedBus || selectedBus.status !== 'active') {
+      return;
+    }
+
+    const distKm = getDistance(
+      trackingLocation.lat,
+      trackingLocation.lng,
+      selectedStop.lat,
+      selectedStop.lng
+    );
+    const distMeters = Math.round(distKm * 1000);
+    const speedKmh = 30;
+    const timeMins = Math.max(1, Math.round((distKm / speedKmh) * 60));
+
+    // If within radius and hasn't alerted for this approach
+    if (distMeters <= geofenceRadius && !hasAlertedRef.current) {
+      hasAlertedRef.current = true;
+      const alertPayload = {
+        busNumber: selectedBus.busNumber,
+        stopName: selectedStop.name,
+        distanceMeters: distMeters,
+        timeMins,
+        timestamp: new Date().toLocaleTimeString(),
+      };
+      setGeofenceAlert(alertPayload);
+
+      // Play Sound Chime
+      if (geofenceSound) {
+        playProximityChime();
+      }
+
+      // Trigger Haptic Vibration on Mobile
+      if (geofenceVibrate && typeof navigator !== 'undefined' && navigator.vibrate) {
+        navigator.vibrate([250, 100, 250, 100, 400]);
+      }
+
+      // Trigger Native Web Notification (even if tab is minimized)
+      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+        try {
+          new Notification(`🚌 Bus ${selectedBus.busNumber} is Approaching!`, {
+            body: `Now ${distMeters}m away from ${selectedStop.name} (~${timeMins} min ETA). Be ready at the stop!`,
+            icon: '/logo.svg',
+            badge: '/logo.svg',
+            tag: 'transitx-geofence',
+          });
+        } catch (err) {
+          console.error('Web notification error:', err);
+        }
+      }
+    } else if (distMeters > geofenceRadius * 1.5) {
+      // Reset alert trigger once the bus has moved past/away
+      hasAlertedRef.current = false;
+    }
+  }, [trackingLocation, selectedStop, geofenceEnabled, geofenceRadius, selectedBus, geofenceSound, geofenceVibrate]);
+
   const handleSelectBus = (bus) => {
     setSelectedBus(bus);
+    hasAlertedRef.current = false;
+    setGeofenceAlert(null);
     setTrackingLocation({
       busId: bus._id,
       busNumber: bus.busNumber,
@@ -529,10 +678,176 @@ const StudentDashboard = () => {
                     </div>
                   )}
 
+                  {/* ACTIVE PROXIMITY GEOFENCE ALERT BANNER */}
+                  {geofenceAlert && (
+                    <div className="mb-4 p-4 bg-[#090014] border-2 border-[#00FFFF] shadow-[0_0_25px_rgba(0,255,255,0.4)] animate-pulse rounded-lg text-left flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3">
+                        <div className="h-10 w-10 rounded-full bg-[#00FFFF]/20 border border-[#00FFFF] flex items-center justify-center shrink-0">
+                          <Radio className="h-5 w-5 text-[#00FFFF] animate-ping" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="px-2 py-0.5 bg-[#FF00FF]/30 border border-[#FF00FF] text-[#FF00FF] text-[10px] font-black uppercase tracking-wider">
+                              🚨 PROXIMITY ALERT
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-mono">{geofenceAlert.timestamp}</span>
+                          </div>
+                          <h4 className="text-base font-black text-white mt-1">
+                            Bus {geofenceAlert.busNumber} is Approaching {geofenceAlert.stopName}!
+                          </h4>
+                          <p className="text-xs text-slate-300 mt-0.5">
+                            Current Distance: <span className="font-bold text-[#00FFFF]">{geofenceAlert.distanceMeters} meters</span> • Estimated Arrival: <span className="font-bold text-[#FF9900]">~{geofenceAlert.timeMins} mins</span>. Please head to your boarding spot now!
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setGeofenceAlert(null)}
+                        className="text-slate-400 hover:text-white p-1"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* PROXIMITY GEOFENCE RADAR CONTROLS */}
+                  <div className="mb-4 p-3.5 bg-[#090014] border border-[#00FFFF]/30 rounded-lg text-left">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-2.5 border-b border-[#00FFFF]/15">
+                      <div className="flex items-center gap-2">
+                        <Radio className={`h-4 w-4 ${geofenceEnabled ? 'text-[#00FFFF] animate-pulse' : 'text-slate-500'}`} />
+                        <div>
+                          <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                            Proximity Geofence Radar
+                            {geofenceEnabled && (
+                              <span className="px-1.5 py-0.2 bg-[#00FFFF]/20 text-[#00FFFF] text-[9px] font-mono border border-[#00FFFF]/40">
+                                ARMED ({geofenceRadius}m)
+                              </span>
+                            )}
+                          </span>
+                          <span className="text-[10px] text-slate-400 block">
+                            Get alerted when bus approaches {selectedStop?.name || 'your stop'}.
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Toggle Switch */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = !geofenceEnabled;
+                          setGeofenceEnabled(next);
+                          if (next && notificationPermission !== 'granted') {
+                            requestNotificationPermission();
+                          }
+                        }}
+                        className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border transition-all ${
+                          geofenceEnabled
+                            ? 'bg-[#00FFFF] text-black border-[#00FFFF] shadow-[0_0_12px_rgba(0,255,255,0.4)]'
+                            : 'bg-transparent text-slate-400 border-slate-700 hover:border-slate-500'
+                        }`}
+                      >
+                        {geofenceEnabled ? 'Radar Active' : 'Arm Radar'}
+                      </button>
+                    </div>
+
+                    {geofenceEnabled && (
+                      <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px]">
+                        {/* Radius Selector */}
+                        <div className="bg-black/50 p-2 border border-slate-800 flex flex-col justify-between">
+                          <span className="text-slate-400 font-bold uppercase block mb-1">Alert Perimeter</span>
+                          <div className="flex gap-1">
+                            {[500, 1000, 2000].map((r) => (
+                              <button
+                                key={r}
+                                type="button"
+                                onClick={() => {
+                                  setGeofenceRadius(r);
+                                  hasAlertedRef.current = false;
+                                }}
+                                className={`flex-1 py-1 text-center font-mono font-bold border ${
+                                  geofenceRadius === r
+                                    ? 'border-[#00FFFF] text-[#00FFFF] bg-[#00FFFF]/10'
+                                    : 'border-slate-800 text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                {r >= 1000 ? `${r / 1000}km` : `${r}m`}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Audio & Haptics */}
+                        <div className="bg-black/50 p-2 border border-slate-800 flex flex-col justify-between">
+                          <span className="text-slate-400 font-bold uppercase block mb-1">Feedback Engine</span>
+                          <div className="flex gap-1">
+                            <button
+                              type="button"
+                              onClick={() => setGeofenceSound(!geofenceSound)}
+                              className={`flex-1 py-1 flex items-center justify-center gap-1 border font-bold ${
+                                geofenceSound
+                                  ? 'border-[#FF00FF] text-[#FF00FF] bg-[#FF00FF]/10'
+                                  : 'border-slate-800 text-slate-500'
+                              }`}
+                            >
+                              {geofenceSound ? <Volume2 className="h-3 w-3" /> : <VolumeX className="h-3 w-3" />}
+                              Chime
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setGeofenceVibrate(!geofenceVibrate)}
+                              className={`flex-1 py-1 flex items-center justify-center gap-1 border font-bold ${
+                                geofenceVibrate
+                                  ? 'border-[#FF9900] text-[#FF9900] bg-[#FF9900]/10'
+                                  : 'border-slate-800 text-slate-500'
+                              }`}
+                            >
+                              <Smartphone className="h-3 w-3" />
+                              Vibrate
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Browser Notification & Test */}
+                        <div className="bg-black/50 p-2 border border-slate-800 flex flex-col justify-between">
+                          <span className="text-slate-400 font-bold uppercase block mb-1">Notification Test</span>
+                          <div className="flex gap-1">
+                            {notificationPermission !== 'granted' ? (
+                              <button
+                                type="button"
+                                onClick={requestNotificationPermission}
+                                className="flex-1 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 text-[9px] font-bold uppercase"
+                              >
+                                Allow Web Push
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={handleTestProximityAlert}
+                                className="flex-1 py-1 bg-[#00FFFF]/10 text-[#00FFFF] border border-[#00FFFF]/30 hover:bg-[#00FFFF]/20 text-[9px] font-bold uppercase flex items-center justify-center gap-1"
+                              >
+                                <Zap className="h-3 w-3" />
+                                Test Radar Alert
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                   <div className="flex-1 min-h-[300px]">
                     <Map
                       activeBusLocation={trackingLocation}
                       routeStops={selectedBus.routeId?.stops || []}
+                      geofenceCircle={
+                        geofenceEnabled && selectedStop
+                          ? {
+                              lat: selectedStop.lat,
+                              lng: selectedStop.lng,
+                              radius: geofenceRadius,
+                              active: true,
+                            }
+                          : null
+                      }
                     />
                   </div>
                 </div>
