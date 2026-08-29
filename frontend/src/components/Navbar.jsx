@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Bus, LogOut, Shield, User as UserIcon, GraduationCap, Briefcase } from 'lucide-react';
+import { Bus, LogOut, Shield, User as UserIcon, GraduationCap, Briefcase, Bot } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -44,13 +44,23 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3 sm:space-x-4">
             <Link
               to="/"
-              className="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors"
+              className="text-slate-300 hover:text-white px-2.5 py-1.5 rounded-md text-sm font-semibold transition-colors"
             >
               Home
             </Link>
+
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event('openTransitBot'))}
+              className="flex items-center gap-1.5 px-3 py-1 bg-[#00FFFF]/10 hover:bg-[#00FFFF]/20 border border-[#00FFFF]/40 text-[#00FFFF] rounded-md text-xs font-bold font-mono tracking-wider transition-all shadow-[0_0_10px_rgba(0,255,255,0.2)]"
+            >
+              <Bot className="h-3.5 w-3.5 text-[#00FFFF] animate-pulse" />
+              <span className="hidden sm:inline">AI TransitBot</span>
+              <span className="sm:hidden">AI</span>
+            </button>
 
             {user ? (
               <>

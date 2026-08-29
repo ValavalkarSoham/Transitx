@@ -51,6 +51,15 @@ const TransitBot = () => {
     }
   }, [messages, isOpen, isMinimized]);
 
+  useEffect(() => {
+    const handleOpenEvent = () => {
+      setIsOpen(true);
+      setIsMinimized(false);
+    };
+    window.addEventListener('openTransitBot', handleOpenEvent);
+    return () => window.removeEventListener('openTransitBot', handleOpenEvent);
+  }, []);
+
   const handleSend = async (customText) => {
     const query = customText || input;
     if (!query.trim() || loading) return;
@@ -143,7 +152,7 @@ const TransitBot = () => {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 font-sans">
+    <div className="fixed bottom-6 right-4 sm:right-6 z-[999999] font-sans">
       {/* Floating Launcher Button */}
       {!isOpen && (
         <button
