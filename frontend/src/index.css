@@ -16,6 +16,20 @@ html, body, #root {
   color: #f4f4f5; /* Crisp Ivory-White */
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.01em;
+  cursor: url('/bus-cursor.svg') 0 0, auto;
+}
+
+/* Custom Cyber Bus Cursor System */
+body * {
+  cursor: url('/bus-cursor.svg') 0 0, auto;
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"], select, .cursor-pointer, [type="checkbox"], [type="radio"] {
+  cursor: url('/bus-pointer.svg') 0 0, pointer !important;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea {
+  cursor: text !important;
 }
 
 /* Custom Cyber Scrollbar */

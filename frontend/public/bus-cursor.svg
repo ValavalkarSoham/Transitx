@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <!-- Drop Shadow for contrast on dark and light surfaces -->
+  <filter id="shadow" x="-20%" y="-20%" width="150%" height="150%">
+    <feDropShadow dx="1" dy="1.5" stdDeviation="1" flood-color="#000000" flood-opacity="0.9"/>
+  </filter>
+
+  <g filter="url(#shadow)">
+    <!-- Pointer Arrow Head (Hotspot at 0, 0) -->
+    <path d="M1 1 L1 15 L5.5 11 L10 20 L13 18.5 L8.5 9.5 L14 9.5 Z" fill="#FACC15" stroke="#000000" stroke-width="1.2" stroke-linejoin="round"/>
+    
+    <!-- Mini Cyber Bus Attached to Cursor (Offset at X: 11, Y: 11) -->
+    <g transform="translate(10, 10)">
+      <!-- Bus Outer Shadow / Border -->
+      <rect x="0" y="0" width="20" height="15" rx="3.5" fill="#000000" stroke="#EAB308" stroke-width="1"/>
+      <!-- Bus Body Yellow -->
+      <rect x="1" y="1" width="18" height="13" rx="2.5" fill="#FACC15"/>
+      <!-- Windshield -->
+      <rect x="3" y="3" width="14" height="4.5" rx="1" fill="#09090b"/>
+      <!-- Front Headlights -->
+      <circle cx="4.5" cy="10.5" r="1.5" fill="#FEF08A" stroke="#000000" stroke-width="0.5"/>
+      <circle cx="15.5" cy="10.5" r="1.5" fill="#FEF08A" stroke="#000000" stroke-width="0.5"/>
+      <!-- Bus Grille -->
+      <rect x="7.5" y="9.5" width="5" height="2" rx="0.5" fill="#18181b"/>
+      <!-- Wheels / Tyres -->
+      <rect x="2" y="13.5" width="3.5" height="2" rx="0.8" fill="#000000"/>
+      <rect x="14.5" y="13.5" width="3.5" height="2" rx="0.8" fill="#000000"/>
+    </g>
+  </g>
+</svg>
