@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Bus, KeyRound, Mail, AlertCircle } from 'lucide-react';
+import { Bus, KeyRound, Mail, AlertCircle, ArrowRight } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -47,38 +47,38 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-slate-950 text-slate-100">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-[#09090b] text-zinc-100 font-sans">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="bg-sky-950/50 border border-sky-900/30 p-3 rounded-full">
-            <Bus className="h-10 w-10 text-sky-400" />
+          <div className="bg-yellow-400/10 border border-yellow-400/30 p-3.5 rounded-2xl shadow-[0_0_20px_rgba(250,204,21,0.2)]">
+            <Bus className="h-10 w-10 text-yellow-400" />
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-white tracking-tight">
-          TransitX Portal Login
+        <h2 className="mt-6 text-center text-3xl font-black text-white tracking-tight">
+          Transit<span className="text-yellow-400 neon-text-yellow">X</span> Portal Login
         </h2>
-        <p className="mt-2 text-center text-sm text-slate-400">
-          Sign in to access Student Space, Employee Panel, or Admin console
+        <p className="mt-2 text-center text-xs text-zinc-400">
+          Sign in to access Student Space, Driver Panel, or Admin console
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-slate-900 py-8 px-4 shadow-xl sm:rounded-lg sm:px-10 border border-slate-800/80 neon-border-cyan animate-neon-pulse">
+        <div className="bg-[#121214] py-8 px-5 shadow-2xl sm:rounded-2xl sm:px-10 border border-zinc-800 hover:border-yellow-400/40 transition-all">
           {authError && (
-            <div className="mb-4 bg-red-950/30 border border-red-900/50 text-red-400 px-4 py-3 rounded-md text-sm flex items-center">
-              <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0" />
+            <div className="mb-5 bg-red-950/40 border border-red-900/60 text-red-300 px-4 py-3 rounded-xl text-xs flex items-center gap-2 font-medium">
+              <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />
               <span>{authError}</span>
             </div>
           )}
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-350">
+              <label htmlFor="email" className="block text-xs font-bold text-zinc-300 uppercase tracking-wider">
                 Email Address
               </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-slate-500" />
+              <div className="mt-1.5 relative rounded-xl shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                  <Mail className="h-4 w-4 text-zinc-500" />
                 </div>
                 <input
                   id="email"
@@ -88,19 +88,19 @@ const Login = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-2 bg-slate-950 border border-slate-800 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 text-sm text-white placeholder-slate-600"
+                  className="block w-full pl-10 pr-3.5 py-2.5 bg-[#09090b] border border-zinc-700 rounded-xl focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 text-xs text-white placeholder-zinc-600 outline-none transition-all"
                   placeholder="alex@transitx.com"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-350">
+              <label htmlFor="password" className="block text-xs font-bold text-zinc-300 uppercase tracking-wider">
                 Password
               </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <KeyRound className="h-5 w-5 text-slate-500" />
+              <div className="mt-1.5 relative rounded-xl shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                  <KeyRound className="h-4 w-4 text-zinc-500" />
                 </div>
                 <input
                   id="password"
@@ -110,31 +110,30 @@ const Login = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-2 bg-slate-950 border border-slate-800 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 text-sm text-white placeholder-slate-600"
+                  className="block w-full pl-10 pr-3.5 py-2.5 bg-[#09090b] border border-zinc-700 rounded-xl focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 text-xs text-white placeholder-zinc-600 outline-none transition-all"
                   placeholder="••••••••"
                 />
               </div>
             </div>
 
-            <div>
+            <div className="pt-1">
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-black text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.35)] transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
               >
-                {loading ? 'Signing in...' : 'Sign In'}
+                <span>{loading ? 'Authenticating...' : 'Sign In to Portal'}</span>
+                <ArrowRight className="h-4 w-4" />
               </button>
             </div>
           </form>
 
-          <div className="mt-4 text-center">
-            <span className="text-sm text-slate-400">Don't have an account? </span>
-            <Link to="/signup" className="text-sm font-bold text-sky-400 hover:text-sky-300">
-              Create one here
+          <div className="mt-6 pt-5 border-t border-zinc-800/80 text-center">
+            <span className="text-xs text-zinc-400">Don't have an account? </span>
+            <Link to="/signup" className="text-xs font-bold text-yellow-400 hover:text-yellow-300 transition-colors">
+              Create one here &rarr;
             </Link>
           </div>
-
-
 
         </div>
       </div>

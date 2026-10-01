@@ -12,9 +12,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      // Show if scrolling up, or if at the very top
       const isVisible = prevScrollPos > currentScrollPos || currentScrollPos < 10;
-      
       setPrevScrollPos(currentScrollPos);
       setVisible(isVisible);
     };
@@ -29,17 +27,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`bg-slate-950 border-b border-sky-500/30 shadow-[0_2px_15px_-3px_rgba(56,189,248,0.2)] sticky top-0 z-50 transition-transform duration-300 ${
+    <nav className={`bg-[#09090b] border-b border-yellow-500/25 shadow-[0_4px_25px_rgba(0,0,0,0.9)] sticky top-0 z-50 transition-transform duration-300 ${
       visible ? 'translate-y-0' : '-translate-y-full'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             {/* Logo */}
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <Bus className="h-8 w-8 text-sky-400" />
-              <span className="ml-2 text-xl font-bold text-white tracking-tight">
-                Transit<span className="text-sky-400 neon-text-cyan">X</span>
+            <Link to="/" className="flex-shrink-0 flex items-center group">
+              <div className="h-9 w-9 rounded-lg bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center group-hover:border-yellow-400 transition-colors">
+                <Bus className="h-5 w-5 text-yellow-400 group-hover:scale-110 transition-transform" />
+              </div>
+              <span className="ml-2.5 text-xl font-black text-white tracking-tight">
+                Transit<span className="text-yellow-400 neon-text-yellow">X</span>
               </span>
             </Link>
           </div>
@@ -47,7 +47,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-3 sm:space-x-4">
             <Link
               to="/"
-              className="text-slate-300 hover:text-white px-2.5 py-1.5 rounded-md text-sm font-semibold transition-colors"
+              className="text-zinc-300 hover:text-yellow-400 px-2.5 py-1.5 rounded-md text-sm font-bold transition-colors"
             >
               Home
             </Link>
@@ -55,9 +55,9 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => window.dispatchEvent(new Event('openTransitBot'))}
-              className="flex items-center gap-1.5 px-3 py-1 bg-[#00FFFF]/10 hover:bg-[#00FFFF]/20 border border-[#00FFFF]/40 text-[#00FFFF] rounded-md text-xs font-bold font-mono tracking-wider transition-all shadow-[0_0_10px_rgba(0,255,255,0.2)]"
+              className="flex items-center gap-1.5 px-3 py-1 bg-yellow-400/10 hover:bg-yellow-400/20 border border-yellow-400/40 text-yellow-400 rounded-md text-xs font-black tracking-wider transition-all shadow-[0_0_12px_rgba(250,204,21,0.25)] hover:shadow-[0_0_18px_rgba(250,204,21,0.45)]"
             >
-              <Bot className="h-3.5 w-3.5 text-[#00FFFF] animate-pulse" />
+              <Bot className="h-3.5 w-3.5 text-yellow-400 animate-pulse" />
               <span className="hidden sm:inline">AI TransitBot</span>
               <span className="sm:hidden">AI</span>
             </button>
@@ -67,9 +67,9 @@ const Navbar = () => {
                 {user.role === 'admin' && (
                   <Link
                     to="/admin"
-                    className="flex items-center text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors"
+                    className="flex items-center text-zinc-300 hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-bold transition-colors"
                   >
-                    <Shield className="h-4.5 w-4.5 mr-1 text-sky-400" />
+                    <Shield className="h-4.5 w-4.5 mr-1 text-yellow-400" />
                     Admin Panel
                   </Link>
                 )}
@@ -77,33 +77,33 @@ const Navbar = () => {
                 {user.role === 'employee' && (
                   <Link
                     to="/employee"
-                    className="flex items-center text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors"
+                    className="flex items-center text-zinc-300 hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-bold transition-colors"
                   >
-                    <Briefcase className="h-4.5 w-4.5 mr-1 text-sky-400" />
-                    Employee Panel
+                    <Briefcase className="h-4.5 w-4.5 mr-1 text-yellow-400" />
+                    Driver Panel
                   </Link>
                 )}
 
                 {user.role === 'student' && (
                   <Link
                     to="/student"
-                    className="flex items-center text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors"
+                    className="flex items-center text-zinc-300 hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-bold transition-colors"
                   >
-                    <GraduationCap className="h-4.5 w-4.5 mr-1 text-sky-400" />
+                    <GraduationCap className="h-4.5 w-4.5 mr-1 text-yellow-400" />
                     Student Space
                   </Link>
                 )}
 
-                <div className="h-4 w-px bg-slate-800" />
-                <span className="text-xs text-slate-400 font-bold hidden sm:inline">
-                  Hi, {user.name}
+                <div className="h-4 w-px bg-zinc-800" />
+                <span className="text-xs text-zinc-400 font-bold hidden sm:inline">
+                  Hi, <span className="text-yellow-400">{user.name}</span>
                 </span>
 
                 <button
                   onClick={handleLogout}
-                  className="flex items-center text-red-400 hover:text-red-300 px-3 py-2 rounded-md text-xs font-bold border border-transparent hover:border-red-900/30 bg-red-955 bg-red-950/20 hover:bg-red-950/40 transition-colors"
+                  className="flex items-center text-red-400 hover:text-red-300 px-3 py-1.5 rounded-md text-xs font-bold border border-red-900/40 bg-red-950/30 hover:bg-red-950/60 transition-colors"
                 >
-                  <LogOut className="h-4 w-4 mr-1" />
+                  <LogOut className="h-3.5 w-3.5 mr-1" />
                   Logout
                 </button>
               </>
@@ -111,13 +111,13 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="text-sky-400 hover:text-sky-300 px-3 py-2 rounded-md text-sm font-bold transition-colors"
+                  className="text-yellow-400 hover:text-yellow-300 px-3 py-2 rounded-md text-sm font-black transition-colors"
                 >
                   Portal Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-md text-white bg-sky-600 hover:bg-sky-700 shadow-sm transition-colors"
+                  className="inline-flex items-center justify-center px-4 py-2 text-sm font-black rounded-md text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.35)] transition-all transform hover:scale-105 active:scale-95"
                 >
                   Register
                 </Link>

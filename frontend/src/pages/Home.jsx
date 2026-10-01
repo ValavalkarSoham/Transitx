@@ -12,6 +12,10 @@ import {
   ChevronDown,
   CheckCircle,
   MapPin,
+  Sparkles,
+  ArrowRight,
+  Shield,
+  Zap,
 } from 'lucide-react';
 
 const Home = () => {
@@ -102,45 +106,49 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-[calc(100vh-4rem)] text-slate-100 flex flex-col">
+    <div className="bg-[#09090b] min-h-[calc(100vh-4rem)] text-zinc-100 flex flex-col font-sans">
       
       {/* 1. Hero Section */}
-      <div className="relative overflow-hidden border-b border-slate-900 min-h-[550px] flex items-center bg-slate-950">
+      <div className="relative overflow-hidden border-b border-zinc-800/80 min-h-[560px] flex items-center bg-[#09090b]">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-55"
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 filter contrast-125"
         >
           <source src="/bg_video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
-        <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] z-0"></div>
+        {/* Ambient Dark Overlay with Yellow Radial Glow */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#09090b] via-[#09090b]/90 to-[#09090b]/80 z-0"></div>
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl pointer-events-none z-0"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
           <div className="max-w-3xl text-left">
-            <span className="text-xs font-bold text-sky-400 uppercase tracking-widest bg-sky-950/45 px-3 py-1 rounded-full border border-sky-900/50 shadow-lg">
-              Smart Campus Transit System
+            <span className="inline-flex items-center gap-1.5 text-xs font-black text-yellow-400 uppercase tracking-widest bg-yellow-400/10 px-3.5 py-1.5 rounded-full border border-yellow-400/30 shadow-[0_0_15px_rgba(250,204,21,0.2)]">
+              <Zap className="h-3.5 w-3.5 text-yellow-400" />
+              Smart Campus Transit System • Goa Edition
             </span>
             <h1 className="mt-5 text-4xl tracking-tight font-black text-white sm:text-5xl md:text-6xl leading-tight">
               Real-Time GPS Bus Tracking <br />
-              <span className="text-sky-400 neon-text-cyan">Made Seamless for Goa</span>
+              <span className="text-yellow-400 neon-text-yellow">Engineered for Goa Campus</span>
             </h1>
-            <p className="mt-5 text-base text-slate-350 sm:text-lg md:text-xl font-medium leading-relaxed max-w-2xl">
-              TransitX maps all 20 pickup lines serving the Parul University Goa campus at ONGC Betul, Quitol. Enjoy real-time tracking, instant digital pass subscriptions, and driver schedules.
+            <p className="mt-5 text-base text-zinc-300 sm:text-lg md:text-xl font-medium leading-relaxed max-w-2xl">
+              TransitX maps all 20 pickup lines serving Parul University Goa campus at ONGC Betul, Quitol. Enjoy live GPS satellite tracking, proximity geofence chimes, instant digital QR passes, and driver telemetry.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Link
                 to="/login"
-                className="flex items-center justify-center px-8 py-3 border border-sky-500/50 text-sm font-extrabold rounded-md text-white bg-sky-600 hover:bg-sky-750 shadow-lg neon-border-cyan animate-neon-pulse transition-all md:py-3.5 md:px-10"
+                className="flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-black rounded-lg text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-[0_0_25px_rgba(250,204,21,0.45)] transition-all transform hover:scale-105 active:scale-95 md:px-10"
               >
-                Portal Login
+                <span>Portal Login</span>
+                <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/signup"
-                className="flex items-center justify-center px-8 py-3 border border-slate-800 text-sm font-extrabold rounded-md text-slate-200 bg-slate-900/90 hover:bg-slate-850 shadow-sm transition-all md:py-3.5 md:px-10"
+                className="flex items-center justify-center px-8 py-3.5 border border-zinc-700 text-sm font-black rounded-lg text-white bg-[#121214] hover:bg-zinc-800 hover:border-yellow-400/50 shadow-sm transition-all md:px-10"
               >
                 Create Account
               </Link>
@@ -150,91 +158,91 @@ const Home = () => {
       </div>
 
       {/* 2. Transport Fleet Statistics Counter */}
-      <div className="bg-slate-900 border-b border-slate-850 py-8 relative z-10">
+      <div className="bg-[#121214] border-b border-zinc-800/80 py-8 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="p-3">
-              <span className="block text-3xl font-black text-sky-400">20</span>
-              <span className="text-xs text-slate-400 uppercase tracking-widest font-bold mt-1 block">Goa Route Lines</span>
+              <span className="block text-3xl sm:text-4xl font-black text-yellow-400 neon-text-yellow">20</span>
+              <span className="text-xs text-zinc-400 uppercase tracking-widest font-bold mt-1 block">Goa Route Lines</span>
             </div>
-            <div className="p-3 border-l border-slate-800">
-              <span className="block text-3xl font-black text-white">100%</span>
-              <span className="text-xs text-slate-400 uppercase tracking-widest font-bold mt-1 block">Live GPS Covered</span>
+            <div className="p-3 border-l border-zinc-800">
+              <span className="block text-3xl sm:text-4xl font-black text-white">100%</span>
+              <span className="text-xs text-zinc-400 uppercase tracking-widest font-bold mt-1 block">Live GPS Covered</span>
             </div>
-            <div className="p-3 border-l border-slate-800">
-              <span className="block text-3xl font-black text-white">₹25K+</span>
-              <span className="text-xs text-slate-400 uppercase tracking-widest font-bold mt-1 block">Pass Rates / Year</span>
+            <div className="p-3 border-l border-zinc-800">
+              <span className="block text-3xl sm:text-4xl font-black text-yellow-400">₹25K+</span>
+              <span className="text-xs text-zinc-400 uppercase tracking-widest font-bold mt-1 block">Pass Rates / Year</span>
             </div>
-            <div className="p-3 border-l border-slate-800">
-              <span className="block text-3xl font-black text-sky-400">ONGC Betul</span>
-              <span className="text-xs text-slate-400 uppercase tracking-widest font-bold mt-1 block">Campus Headquarters</span>
+            <div className="p-3 border-l border-zinc-800">
+              <span className="block text-2xl sm:text-3xl font-black text-white">ONGC Betul</span>
+              <span className="text-xs text-zinc-400 uppercase tracking-widest font-bold mt-1 block">Campus Headquarters</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* 3. Core Portals Options */}
-      <div className="py-20 bg-slate-950 border-b border-slate-900">
+      <div className="py-20 bg-[#09090b] border-b border-zinc-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-xs text-sky-400 font-extrabold tracking-widest uppercase">CORE SHUTTLE PORTFOLIOS</h2>
+            <h2 className="text-xs text-yellow-400 font-black tracking-widest uppercase">CORE SHUTTLE PORTALS</h2>
             <p className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              User Portals Custom-Built for Roles
+              User Portals Custom-Built for Every Role
             </p>
-            <p className="text-slate-400 text-sm mt-2 max-w-lg mx-auto">Access tailored workspaces designed exclusively for students, transit employees, and administrative operations.</p>
+            <p className="text-zinc-400 text-sm mt-2 max-w-lg mx-auto">Access tailored workspaces designed exclusively for students, transit employees, and administrative fleet operations.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Student Space */}
-            <div className="bg-slate-900 border border-slate-800/80 p-8 rounded-xl shadow-lg hover:border-slate-700 transition-all hover:-translate-y-1 flex flex-col justify-between">
+            <div className="bg-[#121214] border border-zinc-800 p-8 rounded-2xl shadow-xl hover:border-yellow-400/50 hover:shadow-[0_0_25px_rgba(250,204,21,0.15)] transition-all hover:-translate-y-1 flex flex-col justify-between group">
               <div>
-                <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-sky-950 text-sky-400 border border-sky-900/30 mb-6">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 mb-6 group-hover:bg-yellow-400 group-hover:text-black transition-all">
                   <GraduationCap className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Student Space</h3>
-                <p className="mt-3 text-xs leading-relaxed text-slate-400">
-                  Access live coordinate tracking on interactive Goa Leaflet maps, trace pickup schedules, purchase subscription plans, view tax invoice logs, and scan your digital QR pass.
+                <h3 className="text-lg font-black text-white">Student Space</h3>
+                <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+                  Access live coordinate tracking on interactive Goa Leaflet maps, trace pickup schedules, purchase subscription plans, arm proximity geofence radars, and scan your digital QR pass.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-slate-850">
-                <Link to="/login" className="text-xs font-black text-sky-400 hover:text-sky-300 flex items-center gap-1">
+              <div className="mt-8 pt-4 border-t border-zinc-800/80">
+                <Link to="/login" className="text-xs font-black text-yellow-400 hover:text-yellow-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                   Open Student Space &rarr;
                 </Link>
               </div>
             </div>
 
             {/* Employee Space */}
-            <div className="bg-slate-900 border border-slate-800/80 p-8 rounded-xl shadow-lg hover:border-slate-700 transition-all hover:-translate-y-1 flex flex-col justify-between">
+            <div className="bg-[#121214] border border-zinc-800 p-8 rounded-2xl shadow-xl hover:border-yellow-400/50 hover:shadow-[0_0_25px_rgba(250,204,21,0.15)] transition-all hover:-translate-y-1 flex flex-col justify-between group">
               <div>
-                <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-sky-950 text-sky-400 border border-sky-900/30 mb-6">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 mb-6 group-hover:bg-yellow-400 group-hover:text-black transition-all">
                   <Briefcase className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Employee Panel</h3>
-                <p className="mt-3 text-xs leading-relaxed text-slate-400">
-                  Log in to review assigned bus timings and schedules. Drivers can toggle coordinate GPS sharing to push location parameters to students live.
+                <h3 className="text-lg font-black text-white">Driver Panel</h3>
+                <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+                  Log in to review assigned bus timings and schedules. Drivers can toggle coordinate GPS broadcasting to push location telemetry to students and receive delay notices in real time.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-slate-850">
-                <Link to="/login" className="text-xs font-black text-sky-400 hover:text-sky-300 flex items-center gap-1">
-                  Open Employee Panel &rarr;
+              <div className="mt-8 pt-4 border-t border-zinc-800/80">
+                <Link to="/login" className="text-xs font-black text-yellow-400 hover:text-yellow-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  Open Driver Panel &rarr;
                 </Link>
               </div>
             </div>
 
             {/* Admin Space */}
-            <div className="bg-slate-900 border border-slate-800/80 p-8 rounded-xl shadow-lg hover:border-slate-700 transition-all hover:-translate-y-1 flex flex-col justify-between">
+            <div className="bg-[#121214] border border-zinc-800 p-8 rounded-2xl shadow-xl hover:border-yellow-400/50 hover:shadow-[0_0_25px_rgba(250,204,21,0.15)] transition-all hover:-translate-y-1 flex flex-col justify-between group">
               <div>
-                <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-sky-950 text-sky-400 border border-sky-900/30 mb-6">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 mb-6 group-hover:bg-yellow-400 group-hover:text-black transition-all">
                   <ShieldAlert className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Admin Command Center</h3>
-                <p className="mt-3 text-xs leading-relaxed text-slate-400">
-                  Complete dashboard to manage bus fleets, seed and update routes, assign driver rosters, register student details, and verify tracking metrics.
+                <h3 className="text-lg font-black text-white">Admin Command Center</h3>
+                <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+                  Complete dashboard to manage bus fleets, seed and update routes, assign driver rosters, register student details, and verify global tracking metrics on the live Goa map.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-slate-850">
-                <Link to="/login" className="text-xs font-black text-sky-400 hover:text-sky-300 flex items-center gap-1">
+              <div className="mt-8 pt-4 border-t border-zinc-800/80">
+                <Link to="/login" className="text-xs font-black text-yellow-400 hover:text-yellow-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                   Access Admin Command &rarr;
                 </Link>
               </div>
@@ -245,26 +253,26 @@ const Home = () => {
       </div>
 
       {/* 4. Interactive Campus Route Explorer */}
-      <div className="py-20 bg-slate-950 border-b border-slate-900">
+      <div className="py-20 bg-[#09090b] border-b border-zinc-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-xs text-sky-400 font-extrabold tracking-widest uppercase">CAMPUS ROUTE SEARCH</h2>
+            <h2 className="text-xs text-yellow-400 font-black tracking-widest uppercase">CAMPUS ROUTE SEARCH</h2>
             <p className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
               Search PU Goa Bus Routes & Pickup Timings
             </p>
-            <p className="text-slate-400 text-xs mt-2 max-w-lg mx-auto">Explore pickup sequences, stops, and pass rates for all 20 lines serving the Betul campus before logging in.</p>
+            <p className="text-zinc-400 text-xs mt-2 max-w-lg mx-auto">Explore pickup sequences, stops, and pass rates for all 20 lines serving the Betul campus before logging in.</p>
           </div>
 
           {/* Search Controls */}
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 mb-8 max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-4">
+          <div className="bg-[#121214] border border-zinc-800 rounded-2xl p-5 mb-8 max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-4 shadow-xl">
             <div className="relative flex-1 w-full">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+              <Search className="absolute left-3.5 top-3 h-4 w-4 text-zinc-500" />
               <input
                 type="text"
                 placeholder="Search by route town or stop name (e.g. Mapusa, Vasco, Navelim)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-1.5 border border-slate-850 bg-slate-950 rounded-lg text-xs text-white focus:ring-1 focus:ring-sky-500"
+                className="w-full pl-10 pr-4 py-2 border border-zinc-700 bg-[#09090b] rounded-xl text-xs text-white focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 outline-none"
               />
             </div>
             
@@ -272,7 +280,7 @@ const Home = () => {
               <select
                 value={selectedGroup}
                 onChange={(e) => setSelectedGroup(e.target.value)}
-                className="w-full sm:w-44 py-1.5 px-3 border border-slate-850 bg-slate-950 rounded-lg text-xs text-white font-bold"
+                className="w-full sm:w-48 py-2 px-3 border border-zinc-700 bg-[#09090b] rounded-xl text-xs text-white font-bold focus:border-yellow-400 outline-none"
               >
                 <option value="All">All Price Groups</option>
                 <option value="Group 1">Group 1 (₹45k PA)</option>
@@ -291,83 +299,85 @@ const Home = () => {
                 const grp = getPriceGroup(r.routeName);
                 const price = routePrices[r.routeName] || 30000;
                 return (
-                  <div key={r._id} className="bg-slate-900 border border-slate-800/80 hover:border-slate-700/80 p-5 rounded-xl shadow-lg transition-all flex flex-col justify-between">
+                  <div key={r._id} className="bg-[#121214] border border-zinc-800 hover:border-yellow-400/40 p-6 rounded-2xl shadow-xl transition-all flex flex-col justify-between group">
                     <div>
                       <div className="flex justify-between items-start gap-2 mb-3">
-                        <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
-                          <Bus className="h-4 w-4 text-sky-400 shrink-0" />
+                        <h4 className="text-sm font-black text-white flex items-center gap-2">
+                          <div className="h-7 w-7 rounded-lg bg-yellow-400/10 border border-yellow-400/30 flex items-center justify-center">
+                            <Bus className="h-4 w-4 text-yellow-400 shrink-0" />
+                          </div>
                           {r.routeName}
                         </h4>
-                        <span className={`inline-flex px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${
-                          grp === 'Group 1' ? 'bg-red-950/40 text-red-400 border border-red-900/35' :
-                          grp === 'Group 2' ? 'bg-orange-950/40 text-orange-400 border border-orange-900/35' :
-                          grp === 'Group 3' ? 'bg-yellow-950/40 text-yellow-400 border border-yellow-900/35' :
-                          grp === 'Group 4' ? 'bg-sky-950/40 text-sky-400 border border-sky-900/35' :
-                          'bg-green-950/40 text-green-400 border border-green-900/35'
-                        }`}>
-                          {grp} (₹{price.toLocaleString()} PA)
+                        <span className="px-2.5 py-0.5 text-[10px] font-black uppercase rounded-full bg-yellow-400/10 border border-yellow-400/40 text-yellow-400 whitespace-nowrap">
+                          {grp} • ₹{price.toLocaleString()}/yr
                         </span>
                       </div>
 
-                      <div className="space-y-2 mt-4 pl-1">
-                        <span className="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Stops & Schedule Sequence</span>
-                        <div className="border-l border-slate-800 pl-4 ml-1.5 space-y-3 relative">
-                          {r.stops.map((stop, idx) => (
-                            <div key={idx} className="relative flex items-center justify-between text-xs">
-                              {/* Dot */}
-                              <div className={`absolute -left-[20.5px] h-2 w-2 rounded-full border ${
-                                stop.name.includes('Quitol') ? 'bg-sky-500 border-sky-400' : 'bg-slate-950 border-slate-700'
-                              }`}></div>
-                              
-                              <span className={`font-semibold ${stop.name.includes('Quitol') ? 'text-sky-400 font-extrabold' : 'text-slate-300'}`}>
-                                {stop.name}
-                              </span>
-                              {idx < r.stops.length - 1 && (
-                                <span className="text-[10px] text-slate-500 font-bold">
-                                  Pickup
-                                </span>
-                              )}
-                            </div>
-                          ))}
-                        </div>
+                      {/* Stops timeline */}
+                      <div className="mt-4 space-y-1.5 text-xs text-zinc-400 pl-2 border-l-2 border-yellow-400/30">
+                        {r.stops.map((stop, sIdx) => (
+                          <div key={sIdx} className="flex items-center gap-2">
+                            <span className="h-1.5 w-1.5 rounded-full bg-yellow-400 -ml-[9px] ring-4 ring-[#121214]"></span>
+                            <span className={sIdx === 0 || sIdx === r.stops.length - 1 ? 'font-bold text-white' : ''}>
+                              {stop.name}
+                            </span>
+                          </div>
+                        ))}
                       </div>
+                    </div>
+
+                    <div className="mt-6 pt-3 border-t border-zinc-800/80 flex justify-between items-center text-[11px] text-zinc-400">
+                      <span>Total Stops: <strong className="text-white">{r.stops.length}</strong></span>
+                      <Link to="/login" className="text-yellow-400 font-black hover:text-yellow-300 flex items-center gap-1">
+                        Track Live &rarr;
+                      </Link>
                     </div>
                   </div>
                 );
               })}
             </div>
           ) : (
-            <div className="text-center py-12 text-slate-500 font-bold text-xs bg-slate-900 border border-slate-800 rounded-xl max-w-xl mx-auto">
-              <span>No matching routes or pickup stops found.</span>
+            <div className="py-12 text-center text-zinc-500">
+              <Bus className="h-12 w-12 text-zinc-600 mx-auto mb-3 animate-pulse" />
+              <p className="text-sm font-bold">No routes match your search criteria.</p>
+              <p className="text-xs mt-1">Try searching for "Margao", "Panjim", "Mapusa", or clear your filter.</p>
             </div>
           )}
         </div>
       </div>
 
-      {/* 5. FAQs Accordion */}
-      <div className="py-20 bg-slate-950">
+      {/* 5. Frequently Asked Questions */}
+      <div className="py-20 bg-[#121214] border-b border-zinc-800/80">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <HelpCircle className="h-10 w-10 text-sky-400 mx-auto mb-2" />
-            <h2 className="text-2xl font-black text-white sm:text-3xl">Frequently Asked Questions</h2>
-            <p className="text-slate-400 text-xs mt-1.5">Quick references to guide you through pass registrations and live operations.</p>
+            <h2 className="text-xs text-yellow-400 font-black tracking-widest uppercase">FAQ DIRECTORY</h2>
+            <p className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
+              Frequently Asked Questions
+            </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 text-left">
             {faqs.map((faq, idx) => (
-              <div key={idx} className="bg-slate-900 border border-slate-850 rounded-xl overflow-hidden shadow-md">
-                <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full px-6 py-4 flex justify-between items-center text-left text-xs font-bold text-slate-200 hover:text-white transition-colors"
-                >
-                  <span>{faq.q}</span>
-                  <ChevronDown className={`h-4.5 w-4.5 text-slate-500 transition-transform ${openFaq[idx] ? 'rotate-180 text-sky-400' : ''}`} />
-                </button>
-
+              <div
+                key={idx}
+                onClick={() => toggleFaq(idx)}
+                className="bg-[#09090b] border border-zinc-800 rounded-xl p-5 cursor-pointer hover:border-yellow-400/40 transition-all shadow-md"
+              >
+                <div className="flex justify-between items-center gap-4">
+                  <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                    <HelpCircle className="h-4 w-4 text-yellow-400 shrink-0" />
+                    {faq.q}
+                  </h4>
+                  <ChevronDown
+                    className={`h-4 w-4 text-yellow-400 transition-transform ${
+                      openFaq[idx] ? 'transform rotate-180' : ''
+                    }`}
+                  />
+                </div>
                 {openFaq[idx] && (
-                  <div className="px-6 pb-5 pt-1 border-t border-slate-850/50">
-                    <p className="text-xs text-slate-400 leading-relaxed font-semibold">{faq.a}</p>
-                  </div>
+                  <p className="mt-3 text-xs text-zinc-400 leading-relaxed pl-6 border-l-2 border-yellow-400/40">
+                    {faq.a}
+                  </p>
                 )}
               </div>
             ))}

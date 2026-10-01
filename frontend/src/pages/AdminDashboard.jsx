@@ -16,6 +16,9 @@ import {
   Calendar,
   Briefcase,
   GraduationCap,
+  Sparkles,
+  ShieldCheck,
+  Radio,
 } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -308,75 +311,100 @@ const AdminDashboard = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[calc(100vh-4rem)]">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 pb-6 border-b border-zinc-800/80 gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Admin Dashboard</h1>
-          <p className="text-sm text-gray-500 mt-1">Manage transport routes, registers, employee duty schedules, and watch active coordinates.</p>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-yellow-400/10 text-yellow-400 border border-yellow-400/30">
+              <ShieldCheck className="h-3.5 w-3.5" /> Fleet SuperAdmin
+            </span>
+            <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/30">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              REALTIME SYNC
+            </span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight font-display">
+            Admin <span className="text-yellow-400">Command Center</span>
+          </h1>
+          <p className="text-sm text-zinc-400 mt-1">
+            Manage transport routes, registers, employee duty schedules, and watch active coordinates.
+          </p>
         </div>
-        <div className="mt-4 md:mt-0 flex gap-2">
+        <div className="flex gap-2 shrink-0">
           <button
             onClick={loadData}
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 shadow-sm"
+            className="inline-flex items-center px-4 py-2.5 border border-zinc-700/80 rounded-xl text-xs font-mono font-bold uppercase text-zinc-200 bg-zinc-900/90 hover:bg-zinc-800 hover:border-yellow-400/50 transition-all shadow-sm"
           >
-            Refresh Data
+            ↻ Refresh Registers
           </button>
         </div>
       </div>
 
       {/* Metrics Section */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex items-center justify-between">
-          <div>
-            <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Total Buses</span>
-            <span className="text-3xl font-black text-gray-950 mt-1 block">{totalBuses}</span>
-          </div>
-          <div className="p-3 bg-sky-50 rounded-full text-sky-600">
-            <BusIcon className="h-6 w-6" />
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex items-center justify-between">
-          <div>
-            <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Active Duties</span>
-            <span className="text-3xl font-black text-green-600 mt-1 block">{activeBuses}</span>
-          </div>
-          <div className="p-3 bg-green-50 rounded-full text-green-600">
-            <Activity className="h-6 w-6 animate-pulse" />
+        <div className="bg-[#121214] p-5 rounded-2xl border border-zinc-800/80 shadow-lg relative overflow-hidden group hover:border-yellow-400/40 transition-all">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-yellow-400"></div>
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Total Buses</span>
+              <span className="text-3xl font-black text-yellow-400 mt-1 block font-mono tracking-tight">{totalBuses}</span>
+            </div>
+            <div className="p-3 bg-yellow-400/10 rounded-xl text-yellow-400 border border-yellow-400/20">
+              <BusIcon className="h-6 w-6" />
+            </div>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex items-center justify-between">
-          <div>
-            <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Total Routes</span>
-            <span className="text-3xl font-black text-gray-950 mt-1 block">{totalRoutes}</span>
-          </div>
-          <div className="p-3 bg-amber-50 rounded-full text-amber-600">
-            <RouteIcon className="h-6 w-6" />
+        <div className="bg-[#121214] p-5 rounded-2xl border border-zinc-800/80 shadow-lg relative overflow-hidden group hover:border-emerald-500/40 transition-all">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-400"></div>
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Active Duties</span>
+              <span className="text-3xl font-black text-emerald-400 mt-1 block font-mono tracking-tight">{activeBuses}</span>
+            </div>
+            <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 border border-emerald-500/20">
+              <Activity className="h-6 w-6 animate-pulse" />
+            </div>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex items-center justify-between">
-          <div>
-            <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Total Employees</span>
-            <span className="text-3xl font-black text-gray-950 mt-1 block">{totalEmployees}</span>
+        <div className="bg-[#121214] p-5 rounded-2xl border border-zinc-800/80 shadow-lg relative overflow-hidden group hover:border-amber-400/40 transition-all">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-amber-400"></div>
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Total Routes</span>
+              <span className="text-3xl font-black text-amber-400 mt-1 block font-mono tracking-tight">{totalRoutes}</span>
+            </div>
+            <div className="p-3 bg-amber-400/10 rounded-xl text-amber-400 border border-amber-400/20">
+              <RouteIcon className="h-6 w-6" />
+            </div>
           </div>
-          <div className="p-3 bg-indigo-50 rounded-full text-indigo-600">
-            <Users className="h-6 w-6" />
+        </div>
+
+        <div className="bg-[#121214] p-5 rounded-2xl border border-zinc-800/80 shadow-lg relative overflow-hidden group hover:border-yellow-400/40 transition-all">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-yellow-400"></div>
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Staff Count</span>
+              <span className="text-3xl font-black text-yellow-400 mt-1 block font-mono tracking-tight">{totalEmployees}</span>
+            </div>
+            <div className="p-3 bg-yellow-400/10 rounded-xl text-yellow-400 border border-yellow-400/20">
+              <Users className="h-6 w-6" />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="border-b border-gray-200 mb-6">
-        <nav className="-mb-px flex space-x-8">
+      {/* Navigation Tabs */}
+      <div className="border-b border-zinc-800 mb-6">
+        <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto">
           {['overview', 'buses', 'routes', 'employees', 'live-map'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm capitalize ${
+              className={`whitespace-nowrap pb-4 px-1 border-b-2 font-bold text-sm tracking-wide capitalize transition-colors ${
                 activeTab === tab
-                  ? 'border-sky-500 text-sky-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-yellow-400 text-yellow-400 shadow-neon-yellow'
+                  : 'border-transparent text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
               }`}
             >
               {tab.replace('-', ' ')}
@@ -387,9 +415,9 @@ const AdminDashboard = () => {
 
       {/* Tab Panels */}
       {loading ? (
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600 mx-auto" />
-          <p className="mt-2 text-sm text-gray-500">Updating registers...</p>
+        <div className="text-center py-16 bg-[#121214] rounded-2xl border border-zinc-800">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-yellow-400 mx-auto" />
+          <p className="mt-3 text-sm font-mono text-zinc-400">Synchronizing fleet registers with telemetry server...</p>
         </div>
       ) : (
         <div>
@@ -397,32 +425,38 @@ const AdminDashboard = () => {
           {activeTab === 'overview' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Bus Status Table Card */}
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Vehicles Overview</h3>
+              <div className="bg-[#121214] p-6 rounded-2xl border border-zinc-800 shadow-xl">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <BusIcon className="h-5 w-5 text-yellow-400" />
+                    Vehicles Status Overview
+                  </h3>
+                  <span className="text-xs font-mono text-zinc-500">{buses.length} registered</span>
+                </div>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200 text-sm">
+                  <table className="min-w-full divide-y divide-zinc-800 text-sm">
                     <thead>
                       <tr>
-                        <th className="px-3 py-2 text-left text-xs font-bold text-gray-400 uppercase">Bus No.</th>
-                        <th className="px-3 py-2 text-left text-xs font-bold text-gray-400 uppercase">Route</th>
-                        <th className="px-3 py-2 text-left text-xs font-bold text-gray-400 uppercase">Status</th>
+                        <th className="px-3 py-2.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Bus No.</th>
+                        <th className="px-3 py-2.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Route</th>
+                        <th className="px-3 py-2.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-zinc-800/60">
                       {buses.map((bus) => (
-                        <tr key={bus._id}>
-                          <td className="px-3 py-3 font-semibold text-gray-800">{bus.busNumber}</td>
-                          <td className="px-3 py-3 text-gray-500 truncate max-w-[150px]">
-                            {bus.routeId?.routeName || 'Unassigned'}
+                        <tr key={bus._id} className="hover:bg-zinc-800/30 transition-colors">
+                          <td className="px-3 py-3 font-mono font-bold text-yellow-400">{bus.busNumber}</td>
+                          <td className="px-3 py-3 text-zinc-300 truncate max-w-[150px]">
+                            {bus.routeId?.routeName || <span className="text-zinc-600 italic">Unassigned</span>}
                           </td>
                           <td className="px-3 py-3">
                             <span
-                              className={`inline-flex px-2 py-0.5 rounded text-[10px] font-bold ${
+                              className={`inline-flex px-2 py-0.5 rounded text-[10px] font-mono font-bold tracking-wider uppercase border ${
                                 bus.status === 'active'
-                                  ? 'bg-green-100 text-green-800'
+                                  ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
                                   : bus.status === 'maintenance'
-                                  ? 'bg-orange-100 text-orange-800'
-                                  : 'bg-gray-100 text-gray-800'
+                                  ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                                  : 'bg-zinc-800 text-zinc-400 border-zinc-700'
                               }`}
                             >
                               {bus.status}
@@ -436,30 +470,38 @@ const AdminDashboard = () => {
               </div>
 
               {/* Drivers & Route Info Card */}
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
+              <div className="bg-[#121214] p-6 rounded-2xl border border-zinc-800 shadow-xl flex flex-col justify-between">
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Employees & Staff</h3>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-base font-bold text-white flex items-center gap-2">
+                      <Briefcase className="h-5 w-5 text-yellow-400" />
+                      Employees & Transit Staff
+                    </h3>
+                    <span className="text-xs font-mono text-zinc-500">{employees.length} total staff</span>
+                  </div>
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center text-sm p-3 bg-gray-50 rounded-lg">
-                      <span className="font-semibold text-gray-600">Total Registered Employees</span>
-                      <span className="font-black text-gray-900">{totalEmployees}</span>
+                    <div className="flex justify-between items-center text-sm p-3.5 bg-zinc-900/80 border border-zinc-800 rounded-xl">
+                      <span className="font-semibold text-zinc-400">Total Registered Personnel</span>
+                      <span className="font-mono font-black text-white text-base">{totalEmployees}</span>
                     </div>
-                    <div className="flex justify-between items-center text-sm p-3 bg-gray-50 rounded-lg">
-                      <span className="font-semibold text-gray-600">Available (Unassigned to Bus)</span>
-                      <span className="font-black text-sky-600">{availableEmployees.length}</span>
+                    <div className="flex justify-between items-center text-sm p-3.5 bg-zinc-900/80 border border-zinc-800 rounded-xl">
+                      <span className="font-semibold text-zinc-400">Available (Unassigned to Bus)</span>
+                      <span className="font-mono font-black text-yellow-400 text-base">{availableEmployees.length}</span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="mt-6 border-t border-gray-100 pt-6">
-                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Available Employees List</h4>
+                <div className="mt-6 border-t border-zinc-800/80 pt-5">
+                  <h4 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-2.5">
+                    Standby / Ready Drivers
+                  </h4>
                   {availableEmployees.length === 0 ? (
-                    <p className="text-xs text-gray-400">All drivers/employees are currently mapped to buses.</p>
+                    <p className="text-xs text-zinc-500 italic">All drivers and employees are currently dispatched to active vehicles.</p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
                       {availableEmployees.map((driver) => (
-                        <span key={driver._id} className="text-xs bg-sky-50 text-sky-700 px-2 py-1 rounded font-semibold border border-sky-100">
-                          👤 {driver.name} ({driver.designation})
+                        <span key={driver._id} className="text-xs bg-yellow-400/10 text-yellow-300 px-2.5 py-1 rounded-lg font-semibold border border-yellow-500/30 flex items-center gap-1.5">
+                          <span>👤</span> {driver.name} <span className="text-[10px] text-zinc-400 font-mono">({driver.designation})</span>
                         </span>
                       ))}
                     </div>
@@ -471,45 +513,48 @@ const AdminDashboard = () => {
 
           {/* Buses CRUD Panel */}
           {activeTab === 'buses' && (
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                <h3 className="text-lg font-bold text-gray-950">Bus Fleet Management</h3>
+            <div className="bg-[#121214] rounded-2xl border border-zinc-800 shadow-xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+                <div>
+                  <h3 className="text-lg font-bold text-white">Bus Fleet Management</h3>
+                  <p className="text-xs text-zinc-400 mt-0.5">Register, modify specifications, or assign drivers to transit units</p>
+                </div>
                 <button
                   onClick={handleOpenAddBus}
-                  className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-semibold rounded-md text-white bg-sky-600 hover:bg-sky-700 shadow-sm"
+                  className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wide text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-neon-yellow transition-all"
                 >
-                  <Plus className="h-4.5 w-4.5 mr-1" />
+                  <Plus className="h-4 w-4 mr-1 stroke-[3]" />
                   Add Bus
                 </button>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 text-sm">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-zinc-800 text-sm">
+                  <thead className="bg-zinc-900/60">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Bus Number</th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Capacity</th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Assigned Route</th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Assigned Staff</th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Status</th>
-                      <th className="px-6 py-3 text-right text-xs font-bold text-gray-400 uppercase">Actions</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Bus Number</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Capacity</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Assigned Route</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Assigned Staff</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-3.5 text-right text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-zinc-800/60">
                     {buses.map((bus) => (
-                      <tr key={bus._id} className="hover:bg-gray-50/50">
-                        <td className="px-6 py-4 font-bold text-gray-900">{bus.busNumber}</td>
-                        <td className="px-6 py-4 text-gray-600">{bus.capacity} seats</td>
-                        <td className="px-6 py-4 text-gray-600 font-semibold">{bus.routeId?.routeName || '—'}</td>
-                        <td className="px-6 py-4 text-gray-600">{bus.driverId?.name || '—'}</td>
+                      <tr key={bus._id} className="hover:bg-zinc-800/30 transition-colors">
+                        <td className="px-6 py-4 font-mono font-bold text-yellow-400">{bus.busNumber}</td>
+                        <td className="px-6 py-4 text-zinc-300 font-mono">{bus.capacity} seats</td>
+                        <td className="px-6 py-4 text-zinc-200 font-semibold">{bus.routeId?.routeName || <span className="text-zinc-600">—</span>}</td>
+                        <td className="px-6 py-4 text-zinc-300">{bus.driverId?.name || <span className="text-zinc-600">—</span>}</td>
                         <td className="px-6 py-4">
                           <span
-                            className={`inline-flex px-2 py-0.5 rounded text-xs font-bold ${
+                            className={`inline-flex px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider border ${
                               bus.status === 'active'
-                                ? 'bg-green-100 text-green-800'
+                                ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
                                 : bus.status === 'maintenance'
-                                ? 'bg-orange-100 text-orange-800'
-                                : 'bg-gray-100 text-gray-800'
+                                ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                                : 'bg-zinc-800 text-zinc-400 border-zinc-700'
                             }`}
                           >
                             {bus.status}
@@ -518,13 +563,15 @@ const AdminDashboard = () => {
                         <td className="px-6 py-4 text-right space-x-2">
                           <button
                             onClick={() => handleOpenEditBus(bus)}
-                            className="text-sky-600 hover:text-sky-900 inline-flex items-center"
+                            className="p-1.5 rounded-lg text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10 transition-colors inline-flex items-center"
+                            title="Edit Bus"
                           >
                             <Edit3 className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => handleDeleteBus(bus._id)}
-                            className="text-red-600 hover:text-red-900 inline-flex items-center"
+                            className="p-1.5 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-400/10 transition-colors inline-flex items-center"
+                            title="Delete Bus"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
@@ -539,31 +586,34 @@ const AdminDashboard = () => {
 
           {/* Routes CRUD Panel */}
           {activeTab === 'routes' && (
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                <h3 className="text-lg font-bold text-gray-950">Transport Routes</h3>
+            <div className="bg-[#121214] rounded-2xl border border-zinc-800 shadow-xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+                <div>
+                  <h3 className="text-lg font-bold text-white">Transport Routes</h3>
+                  <p className="text-xs text-zinc-400 mt-0.5">Define stop coordinate sequences and route geometry</p>
+                </div>
                 <button
                   onClick={handleOpenAddRoute}
-                  className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-semibold rounded-md text-white bg-sky-600 hover:bg-sky-700 shadow-sm"
+                  className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wide text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-neon-yellow transition-all"
                 >
-                  <Plus className="h-4.5 w-4.5 mr-1" />
+                  <Plus className="h-4 w-4 mr-1 stroke-[3]" />
                   Add Route
                 </button>
               </div>
 
-              <div className="divide-y divide-gray-200">
+              <div className="divide-y divide-zinc-800/70">
                 {routes.map((route) => (
-                  <div key={route._id} className="p-6 hover:bg-gray-50/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <div key={route._id} className="p-6 hover:bg-zinc-800/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-colors">
                     <div>
-                      <h4 className="font-extrabold text-gray-900 text-base">{route.routeName}</h4>
+                      <h4 className="font-extrabold text-white text-base font-display">{route.routeName}</h4>
                       <div className="mt-3 flex flex-wrap items-center gap-2">
                         {route.stops.map((stop, i) => (
                           <React.Fragment key={stop._id || i}>
-                            <span className="inline-flex items-center text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-200 rounded px-2.5 py-1">
-                              <MapPin className="h-3 w-3 text-sky-600 mr-1" />
+                            <span className="inline-flex items-center text-xs font-semibold bg-zinc-900 text-zinc-200 border border-zinc-700/80 rounded-lg px-2.5 py-1">
+                              <MapPin className="h-3 w-3 text-yellow-400 mr-1" />
                               {stop.name}
                             </span>
-                            {i < route.stops.length - 1 && <span className="text-gray-300">➔</span>}
+                            {i < route.stops.length - 1 && <span className="text-yellow-400 font-bold text-xs">➔</span>}
                           </React.Fragment>
                         ))}
                       </div>
@@ -571,13 +621,15 @@ const AdminDashboard = () => {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleOpenEditRoute(route)}
-                        className="p-2 border border-gray-200 hover:border-sky-200 text-sky-600 rounded bg-white hover:bg-sky-50 shadow-sm transition-colors"
+                        className="p-2 border border-zinc-700/80 hover:border-yellow-400/50 text-yellow-400 rounded-xl bg-zinc-900 hover:bg-zinc-800 shadow-sm transition-colors"
+                        title="Edit Route"
                       >
                         <Edit3 className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteRoute(route._id)}
-                        className="p-2 border border-gray-200 hover:border-red-200 text-red-600 rounded bg-white hover:bg-red-50 shadow-sm transition-colors"
+                        className="p-2 border border-zinc-700/80 hover:border-red-400/50 text-red-400 rounded-xl bg-zinc-900 hover:bg-zinc-800 shadow-sm transition-colors"
+                        title="Delete Route"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -590,45 +642,45 @@ const AdminDashboard = () => {
 
           {/* Employees CRUD Panel */}
           {activeTab === 'employees' && (
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                <h3 className="text-lg font-bold text-gray-950 font-sans flex items-center gap-2">
-                  <Briefcase className="h-5 w-5 text-sky-600" />
+            <div className="bg-[#121214] rounded-2xl border border-zinc-800 shadow-xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Briefcase className="h-5 w-5 text-yellow-400" />
                   Employee Register & Timings
                 </h3>
                 <button
                   onClick={handleOpenAddEmployee}
-                  className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-semibold rounded-md text-white bg-sky-600 hover:bg-sky-700 shadow-sm"
+                  className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wide text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-neon-yellow transition-all"
                 >
-                  <Plus className="h-4.5 w-4.5 mr-1" />
+                  <Plus className="h-4 w-4 mr-1 stroke-[3]" />
                   Add Employee
                 </button>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 text-sm">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-zinc-800 text-sm">
+                  <thead className="bg-zinc-900/60">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Employee ID</th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Designation</th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-gray-400 uppercase">Shift / Schedule</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Employee ID</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Designation</th>
+                      <th className="px-6 py-3.5 text-left text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Shift / Schedule</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-250">
+                  <tbody className="divide-y divide-zinc-800/60">
                     {employees.map((emp) => (
-                      <tr key={emp._id} className="hover:bg-gray-50/50">
-                        <td className="px-6 py-4 font-extrabold text-gray-900">{emp.employeeId || '—'}</td>
-                        <td className="px-6 py-4 text-gray-800 font-semibold">{emp.name}</td>
-                        <td className="px-6 py-4 text-gray-600">{emp.email}</td>
-                        <td className="px-6 py-4 text-gray-600">
-                          <span className="px-2 py-0.5 rounded bg-sky-50 text-sky-700 text-xs font-bold border border-sky-100">
+                      <tr key={emp._id} className="hover:bg-zinc-800/30 transition-colors">
+                        <td className="px-6 py-4 font-mono font-bold text-yellow-400">{emp.employeeId || '—'}</td>
+                        <td className="px-6 py-4 text-white font-semibold">{emp.name}</td>
+                        <td className="px-6 py-4 text-zinc-400 font-mono text-xs">{emp.email}</td>
+                        <td className="px-6 py-4">
+                          <span className="px-2.5 py-0.5 rounded-lg bg-yellow-400/10 text-yellow-400 text-xs font-mono font-bold border border-yellow-400/30">
                             {emp.designation || 'Driver'}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-gray-600 font-medium flex items-center">
-                          <Calendar className="h-4 w-4 mr-1 text-sky-600" />
+                        <td className="px-6 py-4 text-zinc-300 font-mono text-xs flex items-center">
+                          <Calendar className="h-4 w-4 mr-1.5 text-yellow-400" />
                           {emp.shiftStart} — {emp.shiftEnd}
                         </td>
                       </tr>
@@ -641,9 +693,17 @@ const AdminDashboard = () => {
 
           {/* Live Map Panel */}
           {activeTab === 'live-map' && (
-            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Global Live Fleet Tracker</h3>
-              <div className="h-[450px]">
+            <div className="bg-[#121214] p-6 rounded-2xl border border-zinc-800 shadow-xl">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Radio className="h-5 w-5 text-yellow-400 animate-pulse" />
+                  Global Live Fleet Radar
+                </h3>
+                <span className="text-xs font-mono text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 px-2.5 py-1 rounded-full">
+                  {buses.length} Fleet Nodes Monitored
+                </span>
+              </div>
+              <div className="h-[480px] rounded-xl overflow-hidden border border-zinc-800">
                 <Map allBuses={buses} />
               </div>
             </div>
@@ -653,48 +713,48 @@ const AdminDashboard = () => {
 
       {/* --- Bus Modal Form Overlay --- */}
       {busModalOpen && (
-        <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg max-w-md w-full shadow-xl border border-gray-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h3 className="font-extrabold text-gray-900 text-lg">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-[#121214] rounded-2xl max-w-md w-full shadow-2xl border border-zinc-800 overflow-hidden animate-fadeIn">
+            <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+              <h3 className="font-extrabold text-white text-lg font-display">
                 {busForm.id ? 'Edit Bus Properties' : 'Register New Bus'}
               </h3>
-              <button onClick={() => setBusModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => setBusModalOpen(false)} className="text-zinc-400 hover:text-white transition-colors">
                 <X className="h-5 w-5" />
               </button>
             </div>
             
             <form onSubmit={handleSaveBus} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Bus Number</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Bus Number / License Plate</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. KA-01-F-1234"
                   value={busForm.busNumber}
                   onChange={(e) => setBusForm({ ...busForm, busNumber: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Seating Capacity</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Seating Capacity</label>
                 <input
                   type="number"
                   required
                   min="5"
                   value={busForm.capacity}
                   onChange={(e) => setBusForm({ ...busForm, capacity: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Assign Route</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Assign Route</label>
                 <select
                   value={busForm.routeId}
                   onChange={(e) => setBusForm({ ...busForm, routeId: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 >
                   <option value="">-- No Assigned Route --</option>
                   {routes.map((route) => (
@@ -706,11 +766,11 @@ const AdminDashboard = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Assign Employee (Driver)</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Assign Employee (Driver)</label>
                 <select
                   value={busForm.driverId}
                   onChange={(e) => setBusForm({ ...busForm, driverId: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 >
                   <option value="">-- No Assigned Driver --</option>
                   
@@ -729,14 +789,14 @@ const AdminDashboard = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Vehicle Status</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Vehicle Operational Status</label>
                 <select
                   value={busForm.status}
                   onChange={(e) => setBusForm({ ...busForm, status: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 >
                   <option value="inactive">Inactive</option>
-                  <option value="active">Active (Running)</option>
+                  <option value="active">Active (On Route)</option>
                   <option value="maintenance">Maintenance</option>
                 </select>
               </div>
@@ -745,13 +805,13 @@ const AdminDashboard = () => {
                 <button
                   type="button"
                   onClick={() => setBusModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50"
+                  className="px-4 py-2 border border-zinc-700 rounded-xl text-sm font-semibold text-zinc-300 bg-zinc-900 hover:bg-zinc-800 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 border border-transparent rounded-md text-sm font-semibold text-white bg-sky-600 hover:bg-sky-700 shadow-sm"
+                  className="px-5 py-2 rounded-xl text-sm font-extrabold text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-neon-yellow transition-all"
                 >
                   Save Bus
                 </button>
@@ -763,46 +823,46 @@ const AdminDashboard = () => {
 
       {/* --- Route Modal Form Overlay --- */}
       {routeModalOpen && (
-        <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg max-w-lg w-full shadow-xl border border-gray-200 overflow-hidden max-h-[85vh] flex flex-col">
-            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h3 className="font-extrabold text-gray-900 text-lg">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-[#121214] rounded-2xl max-w-lg w-full shadow-2xl border border-zinc-800 overflow-hidden max-h-[85vh] flex flex-col animate-fadeIn">
+            <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+              <h3 className="font-extrabold text-white text-lg font-display">
                 {routeForm.id ? 'Modify Route Definition' : 'Define New Route'}
               </h3>
-              <button onClick={() => setRouteModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => setRouteModalOpen(false)} className="text-zinc-400 hover:text-white transition-colors">
                 <X className="h-5 w-5" />
               </button>
             </div>
             
             <form onSubmit={handleSaveRoute} className="flex-1 overflow-y-auto p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Route Name</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Route Name</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Route A - express"
                   value={routeForm.routeName}
                   onChange={(e) => setRouteForm({ ...routeForm, routeName: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 />
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className="block text-xs font-bold text-gray-600 uppercase">Stops Coordinates Sequence</label>
+                  <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Stops Coordinates Sequence</label>
                   <button
                     type="button"
                     onClick={handleAddStopInForm}
-                    className="text-sky-600 hover:text-sky-700 text-xs font-bold flex items-center"
+                    className="text-yellow-400 hover:text-yellow-300 text-xs font-bold flex items-center gap-1"
                   >
-                    <Plus className="h-4 w-4 mr-0.5" /> Add Stop
+                    <Plus className="h-4 w-4" /> Add Stop
                   </button>
                 </div>
 
                 <div className="space-y-3 max-h-[40vh] overflow-y-auto pr-1">
                   {routeForm.stops.map((stop, index) => (
-                    <div key={index} className="flex gap-2 items-center bg-gray-50 border border-gray-200 p-3 rounded-lg relative">
-                      <span className="text-xs font-bold text-gray-400 bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center shrink-0">
+                    <div key={index} className="flex gap-2 items-center bg-zinc-900/90 border border-zinc-800 p-3 rounded-xl relative">
+                      <span className="text-xs font-mono font-bold text-black bg-yellow-400 rounded-full h-5 w-5 flex items-center justify-center shrink-0">
                         {index + 1}
                       </span>
                       
@@ -813,7 +873,7 @@ const AdminDashboard = () => {
                           placeholder="Stop Name"
                           value={stop.name}
                           onChange={(e) => handleStopFieldChange(index, 'name', e.target.value)}
-                          className="border border-gray-300 rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-sky-500"
+                          className="bg-zinc-950 border border-zinc-700/80 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400"
                         />
                         <input
                           type="number"
@@ -822,7 +882,7 @@ const AdminDashboard = () => {
                           placeholder="Latitude"
                           value={stop.lat}
                           onChange={(e) => handleStopFieldChange(index, 'lat', e.target.value)}
-                          className="border border-gray-300 rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-sky-500"
+                          className="bg-zinc-950 border border-zinc-700/80 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 font-mono"
                         />
                         <input
                           type="number"
@@ -831,7 +891,7 @@ const AdminDashboard = () => {
                           placeholder="Longitude"
                           value={stop.lng}
                           onChange={(e) => handleStopFieldChange(index, 'lng', e.target.value)}
-                          className="border border-gray-300 rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-sky-500"
+                          className="bg-zinc-950 border border-zinc-700/80 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 font-mono"
                         />
                       </div>
 
@@ -839,7 +899,7 @@ const AdminDashboard = () => {
                         <button
                           type="button"
                           onClick={() => handleRemoveStopInForm(index)}
-                          className="text-red-500 hover:text-red-700 shrink-0"
+                          className="text-red-400 hover:text-red-300 p-1 shrink-0"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -849,17 +909,17 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-gray-150 flex gap-2 justify-end">
+              <div className="pt-4 border-t border-zinc-800 flex gap-2 justify-end">
                 <button
                   type="button"
                   onClick={() => setRouteModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50"
+                  className="px-4 py-2 border border-zinc-700 rounded-xl text-sm font-semibold text-zinc-300 bg-zinc-900 hover:bg-zinc-800 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 border border-transparent rounded-md text-sm font-semibold text-white bg-sky-600 hover:bg-sky-700 shadow-sm"
+                  className="px-5 py-2 rounded-xl text-sm font-extrabold text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-neon-yellow transition-all"
                 >
                   Save Route
                 </button>
@@ -871,70 +931,70 @@ const AdminDashboard = () => {
 
       {/* --- Employee Modal Form Overlay --- */}
       {employeeModalOpen && (
-        <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg max-w-md w-full shadow-xl border border-gray-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h3 className="font-extrabold text-gray-900 text-lg">Register New Employee Staff</h3>
-              <button onClick={() => setEmployeeModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-[#121214] rounded-2xl max-w-md w-full shadow-2xl border border-zinc-800 overflow-hidden animate-fadeIn">
+            <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+              <h3 className="font-extrabold text-white text-lg font-display">Register New Employee Staff</h3>
+              <button onClick={() => setEmployeeModalOpen(false)} className="text-zinc-400 hover:text-white transition-colors">
                 <X className="h-5 w-5" />
               </button>
             </div>
             
             <form onSubmit={handleSaveEmployee} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Full Name</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Full Name</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Mike Smith"
                   value={employeeForm.name}
                   onChange={(e) => setEmployeeForm({ ...employeeForm, name: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Email Address</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Email Address</label>
                 <input
                   type="email"
                   required
                   placeholder="mike@transitx.com"
                   value={employeeForm.email}
                   onChange={(e) => setEmployeeForm({ ...employeeForm, email: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Password</label>
+                <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Password</label>
                 <input
                   type="password"
                   required
                   placeholder="Min 6 characters"
                   value={employeeForm.password}
                   onChange={(e) => setEmployeeForm({ ...employeeForm, password: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Employee ID</label>
+                  <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Employee ID</label>
                   <input
                     type="text"
                     required
                     placeholder="EMP021"
                     value={employeeForm.employeeId}
                     onChange={(e) => setEmployeeForm({ ...employeeForm, employeeId: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Designation</label>
+                  <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Designation</label>
                   <select
                     value={employeeForm.designation}
                     onChange={(e) => setEmployeeForm({ ...employeeForm, designation: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md p-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-sky-500 font-semibold"
+                    className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors font-semibold"
                   >
                     <option value="Driver">Driver</option>
                     <option value="Conductor">Conductor</option>
@@ -945,25 +1005,25 @@ const AdminDashboard = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Shift Start</label>
+                  <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Shift Start</label>
                   <input
                     type="text"
                     required
                     placeholder="09:00"
                     value={employeeForm.shiftStart}
                     onChange={(e) => setEmployeeForm({ ...employeeForm, shiftStart: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Shift End</label>
+                  <label className="block text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Shift End</label>
                   <input
                     type="text"
                     required
                     placeholder="17:00"
                     value={employeeForm.shiftEnd}
                     onChange={(e) => setEmployeeForm({ ...employeeForm, shiftEnd: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors font-mono"
                   />
                 </div>
               </div>
@@ -972,13 +1032,13 @@ const AdminDashboard = () => {
                 <button
                   type="button"
                   onClick={() => setEmployeeModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50"
+                  className="px-4 py-2 border border-zinc-700 rounded-xl text-sm font-semibold text-zinc-300 bg-zinc-900 hover:bg-zinc-800 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 border border-transparent rounded-md text-sm font-semibold text-white bg-sky-600 hover:bg-sky-700 shadow-sm"
+                  className="px-5 py-2 rounded-xl text-sm font-extrabold text-black bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-neon-yellow transition-all"
                 >
                   Create Staff
                 </button>

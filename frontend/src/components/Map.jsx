@@ -56,8 +56,8 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
 
         const stopIcon = L.divIcon({
           className: 'custom-stop-icon',
-          html: `<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-white shadow-md text-xs font-bold text-white ${
-            isFirst ? 'bg-green-600' : isLast ? 'bg-red-600' : 'bg-sky-500'
+          html: `<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-black shadow-[0_0_10px_rgba(250,204,21,0.6)] text-xs font-black ${
+            isFirst ? 'bg-emerald-400 text-black' : isLast ? 'bg-red-500 text-white' : 'bg-yellow-400 text-black'
           }">${index + 1}</div>`,
           iconSize: [24, 24],
           iconAnchor: [12, 12],
@@ -65,7 +65,7 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
 
         const stopMarker = L.marker([stop.lat, stop.lng], { icon: stopIcon })
           .addTo(map)
-          .bindPopup(`<b>Stop ${index + 1}: ${stop.name}</b>`);
+          .bindPopup(`<div class="font-sans text-xs"><b>Stop ${index + 1}: ${stop.name}</b><p class="text-yellow-400 text-[10px] mt-0.5">Route Boarding Point</p></div>`);
 
         routeLayersRef.current.push(stopMarker);
       });
@@ -79,9 +79,9 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
           if (data.routes && data.routes.length > 0) {
             const routeCoords = data.routes[0].geometry.coordinates.map((coord) => [coord[1], coord[0]]);
             const polyline = L.polyline(routeCoords, {
-              color: '#0284c7', // primary sky-600
+              color: '#FACC15', // Electric Cyber Yellow
               weight: 5,
-              opacity: 0.9,
+              opacity: 0.95,
             }).addTo(map);
             routeLayersRef.current.push(polyline);
           } else {
@@ -92,10 +92,10 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
           if (!isCurrent) return;
           console.warn('OSRM router error, falling back to straight lines:', err);
           const polyline = L.polyline(coordinates, {
-            color: '#0284c7',
+            color: '#FACC15',
             weight: 4,
-            opacity: 0.8,
-            dashArray: '5, 10',
+            opacity: 0.85,
+            dashArray: '6, 8',
           }).addTo(map);
           routeLayersRef.current.push(polyline);
         });
@@ -135,11 +135,11 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
       className: 'custom-bus-icon',
       html: `
         <div class="relative flex items-center justify-center">
-          <span class="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-sky-400 opacity-75"></span>
-          <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-sky-600 border-2 border-white shadow-lg text-white">
+          <span class="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-yellow-400 opacity-80"></span>
+          <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-yellow-400 border-2 border-black shadow-[0_0_20px_rgba(250,204,21,0.9)] text-black font-black text-sm">
             🚌
           </div>
-          <div class="absolute -bottom-6 bg-gray-900 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow border border-gray-700 whitespace-nowrap">
+          <div class="absolute -bottom-6 bg-black text-yellow-400 text-[10px] font-black px-2 py-0.5 rounded shadow border border-yellow-400/60 whitespace-nowrap">
             ${busNumber || 'Bus'}
           </div>
         </div>
@@ -149,13 +149,11 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
     });
 
     if (markersRef.current[key]) {
-      // Update position if already exists
       markersRef.current[key].setLatLng([lat, lng]);
     } else {
-      // Create new marker
       const marker = L.marker([lat, lng], { icon: busIcon })
         .addTo(map)
-        .bindPopup(`<b>Bus: ${busNumber || 'Tracking'}</b><br/>Live Location`);
+        .bindPopup(`<b>Bus: ${busNumber || 'Tracking'}</b><br/><span class="text-yellow-400 font-bold">Live GPS Synchronized</span>`);
       
       markersRef.current[key] = marker;
     }
@@ -189,13 +187,13 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
         className: 'custom-bus-icon-global',
         html: `
           <div class="relative flex items-center justify-center">
-            ${isActive ? '<span class="absolute inline-flex h-6 w-6 animate-ping rounded-full bg-green-400 opacity-75"></span>' : ''}
-            <div class="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-white shadow-lg text-white ${
-              isActive ? 'bg-green-600' : bus.status === 'maintenance' ? 'bg-orange-500' : 'bg-gray-500'
+            ${isActive ? '<span class="absolute inline-flex h-7 w-7 animate-ping rounded-full bg-yellow-400 opacity-75"></span>' : ''}
+            <div class="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-black shadow-lg text-black ${
+              isActive ? 'bg-yellow-400' : bus.status === 'maintenance' ? 'bg-amber-600 text-white' : 'bg-zinc-700 text-white'
             }">
               🚌
             </div>
-            <div class="absolute -bottom-6 bg-gray-900 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow border border-gray-700 whitespace-nowrap">
+            <div class="absolute -bottom-6 bg-black text-yellow-400 text-[10px] font-black px-1.5 py-0.5 rounded shadow border border-yellow-400/40 whitespace-nowrap">
               ${bus.busNumber}
             </div>
           </div>
@@ -207,10 +205,10 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
       const marker = L.marker([bus.currentLocation.lat, bus.currentLocation.lng], { icon: busIcon })
         .addTo(map)
         .bindPopup(`
-          <div class="text-sm font-sans">
-            <h3 class="font-bold">${bus.busNumber}</h3>
-            <p>Status: <span class="capitalize font-semibold ${isActive ? 'text-green-600' : 'text-gray-500'}">${bus.status}</span></p>
-            <p>Capacity: ${bus.capacity}</p>
+          <div class="text-sm font-sans text-white">
+            <h3 class="font-bold text-yellow-400">${bus.busNumber}</h3>
+            <p>Status: <span class="capitalize font-semibold ${isActive ? 'text-yellow-400' : 'text-zinc-400'}">${bus.status}</span></p>
+            <p>Capacity: ${bus.capacity} seats</p>
             ${bus.routeId ? `<p>Route: ${bus.routeId.routeName}</p>` : ''}
             ${bus.driverId ? `<p>Driver: ${bus.driverId.name}</p>` : ''}
           </div>
@@ -233,17 +231,18 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
     if (geofenceCircle && geofenceCircle.active && geofenceCircle.lat && geofenceCircle.lng) {
       const circle = L.circle([geofenceCircle.lat, geofenceCircle.lng], {
         radius: geofenceCircle.radius || 1000,
-        color: '#00FFFF',
-        weight: 2,
-        opacity: 0.9,
-        fillColor: '#00FFFF',
-        fillOpacity: 0.12,
+        color: '#FACC15',
+        weight: 2.5,
+        opacity: 0.95,
+        fillColor: '#FACC15',
+        fillOpacity: 0.16,
         dashArray: '6, 6',
       }).addTo(map);
 
       circle.bindTooltip(`📡 Radar Perimeter: ${geofenceCircle.radius}m Alert Zone`, {
         permanent: false,
         direction: 'top',
+        className: 'bg-black text-yellow-400 font-mono text-xs border border-yellow-400 font-bold',
       });
 
       geofenceLayerRef.current = circle;
@@ -251,7 +250,7 @@ const Map = ({ activeBusLocation, routeStops, allBuses, geofenceCircle }) => {
   }, [geofenceCircle]);
 
   return (
-    <div className="relative shadow-sm rounded-lg overflow-hidden border border-gray-200 bg-gray-100">
+    <div className="relative shadow-lg rounded-xl overflow-hidden border border-yellow-500/30 bg-[#09090b]">
       <div ref={mapContainerRef} className="map-container" />
     </div>
   );
