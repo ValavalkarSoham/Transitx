@@ -854,12 +854,107 @@ const StudentDashboard = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex-1 flex flex-col items-center justify-center py-16 text-center bg-[#09090b] border border-dashed border-zinc-800 rounded-xl">
-                  <BusIcon className="h-14 w-14 text-zinc-700 animate-pulse mb-3" />
-                  <h3 className="text-base font-bold text-zinc-300">No Bus Selected</h3>
-                  <p className="text-xs text-zinc-500 max-w-xs mt-1">
-                    Select a bus from the sidebar list to verify its route coordinates and real-time movement.
-                  </p>
+                <div className="flex-1 flex flex-col h-full space-y-4">
+                  {/* Global Fleet Radar Header */}
+                  <div className="bg-[#09090b] p-4 rounded-xl border border-zinc-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div className="text-left">
+                      <div className="flex items-center gap-2">
+                        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        <h3 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                          <Radio className="h-4 w-4 text-yellow-400" />
+                          Global Campus Fleet Radar
+                        </h3>
+                      </div>
+                      <p className="text-[11px] text-zinc-400 mt-0.5">
+                        Displaying all registered fleet units across campus. Select any vehicle to lock telemetry & arm geofence.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-lg bg-yellow-400/10 text-yellow-400 font-mono text-xs font-bold border border-yellow-400/30">
+                        {buses.filter((b) => b.status === 'active').length} Active On-Route
+                      </span>
+                      <span className="px-2.5 py-1 rounded-lg bg-zinc-800 text-zinc-300 font-mono text-xs font-bold border border-zinc-700">
+                        {buses.length} Total Units
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Interactive Global Map */}
+                  <div className="flex-1 min-h-[340px] rounded-xl overflow-hidden border border-zinc-800 shadow-xl relative">
+                    <Map allBuses={buses} />
+                    <div className="absolute bottom-3 left-3 z-[1000] bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-yellow-400/40 text-[10px] text-yellow-400 font-mono flex items-center gap-2 pointer-events-none">
+                      <span className="h-2 w-2 rounded-full bg-yellow-400 animate-pulse"></span>
+                      Tap any bus marker on the map to lock tracking
+                    </div>
+                  </div>
+
+                  {/* Campus Fleet Quick Selection Bar */}
+                  <div className="bg-[#09090b] p-4 rounded-xl border border-zinc-800 text-left">
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1.5">
+                        <BusIcon className="h-3.5 w-3.5 text-yellow-400" />
+                        Quick Select Fleet Units ({buses.length})
+                      </span>
+                      <span className="text-[10px] text-zinc-500 font-mono">Real-time coordinates synced</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-48 overflow-y-auto pr-1">
+                      {buses.map((bus) => {
+                        const isRunning = bus.status === 'active';
+                        return (
+                          <div
+                            key={bus._id}
+                            onClick={() => handleSelectBus(bus)}
+                            className="p-3 bg-[#121214] border border-zinc-800 hover:border-yellow-400/60 rounded-xl cursor-pointer transition-all hover:bg-yellow-400/5 group flex flex-col justify-between"
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="font-mono font-black text-xs text-white group-hover:text-yellow-400 transition-colors flex items-center gap-1.5">
+                                <BusIcon className="h-3.5 w-3.5 text-yellow-400" />
+                                {bus.busNumber}
+                              </span>
+                              <span
+                                className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase ${
+                                  isRunning
+                                    ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                                    : 'bg-zinc-800 text-zinc-400'
+                                }`}
+                              >
+                                {isRunning ? 'Running' : 'Standby'}
+                              </span>
+                            </div>
+
+                            <p className="text-[10px] text-zinc-400 mt-1 truncate">
+                              {bus.routeId?.routeName || 'Unassigned Line'}
+                            </p>
+
+                            <div className="mt-2 pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[10px]">
+                              <span className="text-zinc-500 font-mono">{bus.capacity || 40} seats</span>
+                              <span className="text-yellow-400 font-bold group-hover:translate-x-1 transition-transform">
+                                Track Live &rarr;
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Campus Emergency Hotline & Advisory */}
+                  <div className="bg-yellow-400/10 border border-yellow-400/30 p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left">
+                    <div className="flex items-center gap-2.5">
+                      <div className="h-8 w-8 rounded-lg bg-yellow-400/20 text-yellow-400 flex items-center justify-center font-bold shrink-0">
+                        🛡️
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-white block">Campus Transit Safety & Control Room</span>
+                        <span className="text-[10px] text-zinc-400 block">ONGC Betul HQ Control Desk: <strong>+91 832 2700000</strong> (Ext: 204)</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-mono text-yellow-400 bg-black/60 px-2.5 py-1 rounded-lg border border-yellow-400/30 shrink-0">
+                      24/7 Security Active
+                    </span>
+                  </div>
                 </div>
               )}
             </div>
